@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>$SI · Slingoor Intelligence</title>
+<meta name="description" content="Slingoor Intelligence ($SI). A parody trading agent paired with $LMAO on Pump.fun. A 0.5% holder fee on every trade is paid to holders in $LMAO by Pump.fun. Live on-chain wallet and rewards tracking.">
+<meta property="og:title" content="$SI · Slingoor Intelligence">
+<meta property="og:description" content="paired with $LMAO. a 0.5% holder fee on every trade, paid to holders in $LMAO by Pump.fun. watch the agent's wallet live.">
+<meta property="og:image" content="og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#07090B">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090B;--bg2:#0B0E11;--panel:#0F1215;--panel2:#13171B;--line:#1F2429;--line2:#2A3036;--amb:#FFB000;--amb2:#FFC94D;--red:#FF3B3B;--green:#2BE07A;--ink:#ECE6DA;--ink2:#B9B2A6;--dim:#7C756A;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;--cond:"Barlow Condensed","Arial Narrow",sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 var(--mono);overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;background:repeating-linear-gradient(0deg,rgba(0,0,0,.13) 0 1px,transparent 1px 4px)}
+a{color:inherit}
+img{max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.mono-dim{color:var(--dim)}
+.amb{color:var(--amb)}
+.hide{display:none!important}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
+nav.solid{background:rgba(7,9,11,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:14px}
+.logo{font-weight:700;color:var(--amb);text-decoration:none;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.logo img{width:26px;height:26px;border-radius:50%}
+.navlinks{display:flex;gap:22px;font-size:13px}
+.navlinks a{text-decoration:none;color:var(--ink2)}
+.navlinks a:hover{color:var(--amb)}
+.live{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--red);letter-spacing:.06em;text-transform:uppercase}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(255,59,59,.6);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,59,59,.55)}70%{box-shadow:0 0 0 9px rgba(255,59,59,0)}100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:10px;border:1px solid var(--amb);background:transparent;color:var(--amb);font:700 13px var(--mono);text-decoration:none;cursor:pointer;transition:transform .12s,background .15s,box-shadow .15s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px);background:rgba(255,176,0,.08)}
+.btn.solid{background:var(--amb);color:#140b00;box-shadow:0 0 0 rgba(255,176,0,0)}
+.btn.solid:hover{background:var(--amb2);box-shadow:0 6px 24px rgba(255,176,0,.25)}
+.btn.sm{padding:9px 14px;font-size:12px}
+/* hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:110px 0 64px;background:#000 url(banner.jpg) 68% center/cover no-repeat;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,9,11,.94) 0%,rgba(7,9,11,.62) 42%,rgba(7,9,11,.08) 74%),linear-gradient(0deg,var(--bg) 0%,rgba(7,9,11,0) 38%)}
+.hero .wrap{position:relative;width:100%}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink2);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--amb)}
+.ticker{font:800 clamp(130px,23vw,250px)/.8 var(--cond);color:var(--amb);margin:14px 0 0;letter-spacing:-.01em;text-shadow:0 0 50px rgba(255,176,0,.45)}
+.name{font-size:clamp(20px,3.2vw,30px);font-weight:700;margin:16px 0 6px}
+.pair{display:flex;align-items:center;gap:10px;color:var(--amb);font-weight:700;font-size:clamp(15px,2.3vw,20px)}
+.pair img{width:32px;height:32px;animation:spin 3.2s linear infinite}
+@keyframes spin{to{transform:rotateY(360deg)}}
+.term{margin-top:20px;font-size:14px;color:var(--ink2);min-height:1.6em}
+.term b{color:var(--ink);font-weight:500}
+.cursor{display:inline-block;width:.55em;height:1.05em;background:var(--amb);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.ca{margin-top:26px;display:flex;gap:10px;max-width:640px;flex-wrap:wrap}
+.ca .box{flex:1 1 280px;min-width:0;display:flex;align-items:center;gap:10px;background:rgba(15,18,21,.82);border:1px solid var(--line2);border-radius:10px;padding:0 14px;height:46px}
+.ca .box span{font-size:11px;color:var(--dim);letter-spacing:.12em}
+.ca code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 13.5px var(--mono);color:var(--ink)}
+.ca code.soon{color:var(--dim)}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+/* marquee */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);overflow:hidden;white-space:nowrap;position:relative}
+.marquee .track{display:inline-flex;gap:46px;padding:14px 0;animation:mq 38s linear infinite;will-change:transform}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mq-item{font-size:13px;color:var(--ink2);display:inline-flex;gap:10px;align-items:center}
+.mq-item b{color:var(--amb);font-weight:700}
+.mq-item .up{color:var(--green)}.mq-item .down{color:var(--red)}
+.mq-sep{color:var(--line2)}
+/* sections */
+section{padding:96px 0;position:relative}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:34px;flex-wrap:wrap}
+.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amb);margin-bottom:10px}
+h2{font:800 clamp(44px,7vw,76px)/.92 var(--cond);margin:0;text-transform:lowercase;letter-spacing:-.005em}
+h2 em{font-style:normal;color:var(--amb)}
+.sec-sub{color:var(--ink2);max-width:520px;margin:12px 0 0}
+.stamp{font-size:12px;color:var(--dim);display:flex;align-items:center;gap:8px}
+.stamp i{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block}
+.stamp.stale i{background:var(--dim)}
+.panel{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:18px;position:relative;overflow:hidden}
+.panel::before{content:"";position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,176,0,.6),transparent)}
+/* agent */
+.agent-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr);gap:20px}
+.bal-card{padding:28px}
+.bal-top{display:flex;justify-content:space-between;align-items:center}
+.label{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.bal{font:800 clamp(66px,8.4vw,108px)/1 var(--cond);color:var(--amb);margin:14px 0 4px;white-space:nowrap;text-shadow:0 0 34px rgba(255,176,0,.35)}
+.bal small{font-size:.42em;color:var(--ink2);margin-left:8px;text-shadow:none}
+.since{font-size:13px;color:var(--ink2)}
+.since .up{color:var(--green)}.since .down{color:var(--red)}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.mini div{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px}
+.mini b{display:block;font:700 26px/1.1 var(--cond);color:var(--ink)}
+.mini span{font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.agent-pic{display:flex;gap:16px;align-items:center;margin-top:22px;padding-top:20px;border-top:1px dashed var(--line2)}
+.agent-pic img{width:84px;height:84px;border-radius:14px;border:1px solid var(--line2);object-fit:cover}
+.agent-pic p{margin:0;font-size:13px;color:var(--ink2)}
+.agent-pic p b{color:var(--ink)}
+.wallet-addr{font-size:12px;color:var(--dim);margin-top:10px;word-break:break-all}
+.wallet-addr a{color:var(--ink2)}
+.feed{padding:8px 0}
+.feed-head{display:flex;justify-content:space-between;align-items:center;padding:16px 22px 12px}
+.rows{max-height:520px;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.row{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 22px;border-top:1px solid var(--line);text-decoration:none;transition:background .15s}
+.row:hover{background:rgba(255,176,0,.04)}
+.row.new{animation:flashrow 2.2s ease-out}
+@keyframes flashrow{0%{background:rgba(255,176,0,.22)}100%{background:transparent}}
+.tok{width:42px;height:42px;border-radius:50%;background:var(--panel2) center/cover no-repeat;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font:700 13px var(--cond);color:var(--dim);overflow:hidden}
+.row .t1{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .t2{font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{display:inline-block;font:700 10.5px var(--mono);letter-spacing:.08em;padding:3px 7px;border-radius:6px;margin-right:8px;vertical-align:1px}
+.pill.buy{background:rgba(255,176,0,.14);color:var(--amb)}
+.pill.sell{background:rgba(43,224,122,.12);color:var(--green)}
+.pill.fund{background:rgba(236,230,218,.1);color:var(--ink)}
+.pill.withdraw{background:rgba(255,59,59,.12);color:var(--red)}
+.row .amt{text-align:right;font-weight:700;font-size:14px;white-space:nowrap}
+.row .amt span{display:block;font-weight:400;font-size:11.5px;color:var(--dim)}
+.empty{padding:40px 22px;color:var(--dim);font-size:13.5px;text-align:center}
+.empty b{display:block;color:var(--ink2);font-size:15px;margin-bottom:6px}
+/* rewards */
+.rw-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px}
+.rw-main{padding:30px}
+.big-count{font:800 clamp(64px,9vw,120px)/1 var(--cond);color:var(--amb);margin:12px 0 2px;text-shadow:0 0 34px rgba(255,176,0,.35);white-space:nowrap}
+.big-count small{font-size:.36em;color:var(--ink2);text-shadow:none;margin-left:10px}
+.chart{margin-top:26px;height:150px;display:flex;align-items:flex-end;gap:5px;border-bottom:1px solid var(--line2);padding-bottom:1px}
+.chart div{flex:1;min-width:3px;background:linear-gradient(180deg,var(--amb),rgba(255,176,0,.25));border-radius:3px 3px 0 0;position:relative;transition:height .6s}
+.chart div:hover{background:var(--amb2)}
+.chart div:hover::after{content:attr(data-t);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line2);padding:5px 8px;border-radius:6px;font-size:11px;white-space:nowrap;color:var(--ink);z-index:2}
+.chart-cap{display:flex;justify-content:space-between;font-size:11px;color:var(--dim);margin-top:8px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{padding:20px}
+.tile b{display:block;font:800 40px/1.05 var(--cond);margin-top:8px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile em{font-style:normal;font-size:12px;color:var(--ink2)}
+.pending{padding:40px 30px;text-align:center}
+.pending .ring{width:74px;height:74px;margin:0 auto 18px;border-radius:50%;border:2px dashed rgba(255,176,0,.5);display:flex;align-items:center;justify-content:center;animation:rot 9s linear infinite}
+.pending .ring img{width:46px;height:46px;animation:rot 9s linear infinite reverse}
+@keyframes rot{to{transform:rotate(360deg)}}
+.pending h3{font:800 34px/1 var(--cond);margin:0 0 10px;color:var(--amb)}
+.pending p{color:var(--ink2);max-width:520px;margin:0 auto;font-size:14px}
+/* how */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{padding:26px}
+.card .n{font-size:12px;color:var(--dim)}
+.card h3{font:800 38px/.98 var(--cond);margin:10px 0 12px;color:var(--amb)}
+.card p{margin:0;font-size:14px;color:var(--ink2)}
+.card p b{color:var(--ink);font-weight:500}
+.card.red::before{background:linear-gradient(90deg,transparent,rgba(255,59,59,.7),transparent)}
+.card.red h3{color:var(--red)}
+.fine{color:var(--dim);font-size:12px;margin-top:18px}
+/* watch */
+.watch{display:block;max-width:980px}
+.vid{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000}
+.vid video{display:block;width:100%;height:auto}
+.vid-cap{font-size:12px;color:var(--dim);margin-top:10px}
+/* footer */
+footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--dim);font-size:12.5px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px}
+footer a{color:var(--ink2)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:var(--amb);color:#140b00;font-weight:700;padding:10px 16px;border-radius:10px;opacity:0;transition:.2s;z-index:95;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (max-width:900px){
+  .agent-grid,.rw-grid,.watch{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .navlinks{display:none}
+  .watch .vid.v{max-width:360px}
+}
+@media (max-width:600px){
+  .hero{background-position:72% center;padding-bottom:44px}
+  .hero::before{background:linear-gradient(0deg,var(--bg) 6%,rgba(7,9,11,.72) 52%,rgba(7,9,11,.3) 100%)}
+  section{padding:68px 0}
+  .bal-card,.rw-main{padding:22px}
+  .row{padding:12px 16px;gap:12px}
+  .feed-head{padding:14px 16px 10px}
+  .tile b{font-size:26px;white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav id="nav"><div class="wrap">
+  <a class="logo" href="#top"><img src="lmao.png" alt="">si//agent</a>
+  <div class="navlinks"><a href="#agent">agent wallet</a><a href="#rewards">holder rewards</a><a href="#how">how it works</a><a href="#watch">watch</a></div>
+  <div style="display:flex;gap:14px;align-items:center"><span class="live"><i></i>live</span><a class="btn solid sm" id="navbuy" href="https://pump.fun" target="_blank" rel="noopener">buy $SI</a></div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow">parody trading agent · pump.fun</div>
+    <h1 class="ticker">$SI</h1>
+    <div class="name">slingoor intelligence</div>
+    <div class="pair"><img src="lmao.png" alt="">paired with $LMAO</div>
+    <div class="term" id="term"></div>
+    <div class="ca">
+      <div class="box"><span>CA</span><code id="ca" class="soon">drops at launch</code></div>
+      <button class="btn" id="copy">copy</button>
+    </div>
+    <div class="links">
+      <a class="btn solid" id="buy" href="https://pump.fun" target="_blank" rel="noopener">buy on pump.fun</a>
+      <a class="btn" id="chart" href="#" target="_blank" rel="noopener">chart</a>
+      <a class="btn" id="xlink" href="#" target="_blank" rel="noopener">x</a>
+      <a class="btn" id="tglink" href="#" target="_blank" rel="noopener">telegram</a>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-label="live stats"><div class="track" id="mq"></div></div>
+
+<section id="agent">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="kicker">01 · on-chain, live</div><h2>the agent's <em>wallet</em></h2>
+        <p class="sec-sub">every move it makes, read straight off the blockchain. no screenshots, no edits.</p></div>
+      <div class="stamp" id="stampA"><i></i><span>syncing…</span></div>
+    </div>
+    <div class="agent-grid">
+      <div class="panel bal-card reveal">
+        <div class="bal-top"><span class="label">balance</span><span class="live"><i></i>on-chain</span></div>
+        <div class="bal" id="bal">—<small>SOL</small></div>
+        <div class="since" id="since">started with 1.000 SOL, funded by hand.</div>
+        <div class="mini">
+          <div><b id="mApes">—</b><span>buys</span></div>
+          <div><b id="mSpent">—</b><span>sol deployed</span></div>
+          <div><b id="mLast">—</b><span>last move</span></div>
+        </div>
+        <div class="agent-pic">
+          <img src="agent.jpg" alt="the agent">
+          <p><b>one sol and a dream.</b> the agent wallet started with 1 SOL, funded by hand, not by your fees. every move it makes shows up here, live, straight from the chain.</p>
+        </div>
+        <div class="wallet-addr" id="waddr"></div>
+      </div>
+      <div class="panel feed reveal">
+        <div class="feed-head"><span class="label">recent moves</span><span class="stamp" id="newmove"></span></div>
+        <div class="rows" id="rows"><div class="empty"><b>waiting for the first move</b>the feed fills in automatically once the agent wallet is live.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rewards" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="kicker">02 · paid by pump.fun</div><h2>holders eat <em>the fees</em></h2>
+        <p class="sec-sub">every $SI trade pays a 0.5% holder fee. Pump.fun collects it in $LMAO and pays it out to $SI holders through its holder rewards program.</p></div>
+      <div class="stamp" id="stampR"><i></i><span>syncing…</span></div>
+    </div>
+    <div id="rwPending" class="panel pending reveal">
+      <div class="ring"><img src="lmao.png" alt=""></div>
+      <h3>first drop pending</h3>
+      <p>the 0.5% holder fee builds up in a Pump.fun reward vault and gets paid out to holders from time to time, in proportion to how much $SI they hold. you need at least $20 worth of $SI to be included. the live counter switches on after the first payout.</p>
+    </div>
+    <div id="rwLive" class="rw-grid hide">
+      <div class="panel rw-main reveal">
+        <span class="label">total $LMAO paid to holders</span>
+        <div class="big-count" id="rwTotal">0<small>$LMAO</small></div>
+        <div class="since" id="rwTotalSub"></div>
+        <div class="chart" id="rwChart"></div>
+        <div class="chart-cap"><span id="rwCap0"></span><span>each bar = one drop</span><span>latest</span></div>
+      </div>
+      <div class="tiles">
+        <div class="panel tile reveal"><span class="label">last drop</span><b id="tLast">—</b><em id="tLastSub"></em></div>
+        <div class="panel tile reveal"><span class="label">drops so far</span><b id="tDrops">—</b><em>since launch</em></div>
+        <div class="panel tile reveal"><span class="label">wallets paid</span><b id="tWallets">—</b><em>all-time, unique</em></div>
+        <div class="panel tile reveal"><span class="label">in the vault now</span><b id="tVault">—</b><em>next drop filling</em></div>
+      </div>
+    </div>
+    <p class="fine reveal">how pump.fun runs it: the 0.5% holder fee is set at launch and can't be changed afterward (except through a community takeover). rewards are paid in $LMAO, pro rata, to wallets holding at least $20 worth of $SI. before each payout Pump.fun keeps a small reserve from the vault to cover distribution costs, and it skips a payout if the vault is too small. holder rewards are run by Pump.fun and are not guaranteed. nothing on this site is a promise of returns. nfa.</p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><div class="kicker">03 · the whole deck</div><h2>how it <em>works</em></h2>
+      <p class="sec-sub">three things. this is not a pitch deck.</p></div></div>
+    <div class="cards">
+      <div class="panel card reveal"><div class="n">01 · the pair</div><h3>paired with $LMAO</h3><p>$SI's Pump.fun pool is priced in <b>$LMAO</b>, not SOL. last laugh type shi.</p></div>
+      <div class="panel card reveal"><div class="n">02 · the fees</div><h3>holders eat the fees</h3><p>every $SI trade pays a <b>0.5% holder fee</b>, collected in $LMAO. Pump.fun pays it out to $SI holders in proportion to their bags. hold at least $20 of $SI to be included. pump.fun pays it. not me.</p></div>
+      <div class="panel card red reveal"><div class="n">03 · the agent</div><h3>one sol and a dream</h3><p>the agent wallet started with <b>1 SOL</b>, funded by hand, not by your fees. every move is on-chain and on this page. one wallet. one app. do not copy trade.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="watch" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><div class="kicker">04 · footage</div><h2>agent <em>online</em></h2><p class="sec-sub">already bagholding.</p></div></div>
+    <div class="watch">
+      <div class="reveal"><div class="vid"><video src="launch.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video></div><div class="vid-cap">launch film</div></div>
+
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <span><b class="amb">$SI</b> · slingoor intelligence</span>
+  <span>parody agent. unaffiliated. do not copy trade. nfa.</span>
+  <span id="srcnote">data: Solana blockchain (refreshed ~10 min) · price: DexScreener</span>
+</div></footer>
+<div class="toast" id="toast">copied</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let CFG = {}, DATA = null, PRICE = null, LIVE = { sol: null, sig: null, ts: null };
+const fmt = (n, d = 0) => n == null || isNaN(n) ? '—' : Number(n).toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: d });
+function compact(n) { if (n == null || isNaN(n)) return '—'; const a = Math.abs(n); if (a >= 1e9) return (n / 1e9).toFixed(2) + 'B'; if (a >= 1e6) return (n / 1e6).toFixed(2) + 'M'; if (a >= 1e4) return (n / 1e3).toFixed(1) + 'K'; if (a >= 100) return fmt(n, 0); if (a >= 1) return fmt(n, 2); return n.toPrecision(3); }
+function usd(n) { if (n == null || isNaN(n)) return '—'; if (n < 0.01) return '$' + Number(n).toPrecision(3); return '$' + compact(n); }
+function ago(ts) { if (!ts) return '—'; const s = Math.max(0, Date.now() / 1000 - ts); if (s < 60) return 'just now'; if (s < 3600) return Math.floor(s / 60) + 'm ago'; if (s < 86400) return Math.floor(s / 3600) + 'h ago'; return Math.floor(s / 86400) + 'd ago'; }
+const short = a => a ? a.slice(0, 4) + '…' + a.slice(-4) : '';
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+async function getJSON(url) { const r = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(), { cache: 'no-store' }); if (!r.ok) throw new Error(r.status); return r.json(); }
+
+// ---------- config + links
+function applyConfig() {
+  const ca = (CFG.si_mint || '').trim();
+  if (ca) { $('ca').textContent = ca; $('ca').classList.remove('soon'); const pf = 'https://pump.fun/coin/' + ca; $('buy').href = pf; $('navbuy').href = pf; $('chart').href = 'https://dexscreener.com/solana/' + ca; }
+  else { $('chart').classList.add('hide'); $('copy').classList.add('hide'); }
+  if (CFG.x_url) $('xlink').href = CFG.x_url; else $('xlink').classList.add('hide');
+  if (CFG.telegram_url) $('tglink').href = CFG.telegram_url; else $('tglink').classList.add('hide');
+  const w = (CFG.agent_wallet || '').trim();
+  $('waddr').innerHTML = w ? `wallet: <a href="https://solscan.io/account/${esc(w)}" target="_blank" rel="noopener">${esc(w)}</a>` : '';
+}
+$('copy').onclick = async () => { const ca = (CFG.si_mint || '').trim(); try { await navigator.clipboard.writeText(ca); } catch (e) { const r = document.createRange(); r.selectNode($('ca')); getSelection().removeAllRanges(); getSelection().addRange(r); document.execCommand('copy'); } $('toast').classList.add('on'); setTimeout(() => $('toast').classList.remove('on'), 1300); };
+
+// ---------- agent
+let seenSigs = new Set(), firstPaint = true;
+function renderAgent() {
+  const a = DATA && DATA.agent; const start = (a && a.start_sol) || CFG.start_sol || 1;
+  const sol = LIVE.sol != null ? LIVE.sol : (a ? a.sol : null);
+  $('bal').innerHTML = (sol == null ? '—' : fmt(sol, 3)) + '<small>SOL</small>';
+  $('since').textContent = `started with ${fmt(start, 3)} SOL, funded by hand.`;
+  if (!a) return;
+  $('mApes').textContent = fmt(a.apes); $('mSpent').textContent = fmt(a.spent_sol, 3);
+  const lastTs = Math.max(LIVE.ts || 0, (a.events && a.events[0] && a.events[0].ts) || 0); $('mLast').textContent = lastTs ? ago(lastTs).replace(' ago', '') : '—';
+  const ev = a.events || [];
+  if (!ev.length) return;
+  $('rows').innerHTML = ev.map(e => {
+    const isNew = !firstPaint && !seenSigs.has(e.sig);
+    const tok = e.image ? `<div class="tok" style="background-image:url('${esc(e.image)}')"></div>` : `<div class="tok">${esc((e.symbol || (e.kind == 'fund' ? 'SOL' : '?')).slice(0, 4))}</div>`;
+    const label = { buy: 'APED', sell: 'SOLD', fund: 'FUNDED', withdraw: 'MOVED OUT' }[e.kind] || e.kind;
+    const name = e.kind == 'fund' ? 'wallet funded' : e.kind == 'withdraw' ? 'sol moved out' : (e.symbol ? '$' + e.symbol : short(e.mint));
+    const sub = e.kind == 'buy' || e.kind == 'sell' ? (e.name ? esc(e.name) + ' · ' : '') + ago(e.ts) : ago(e.ts);
+    const amt = Math.abs(e.sol || 0);
+    return `<a class="row${isNew ? ' new' : ''}" href="https://solscan.io/tx/${esc(e.sig)}" target="_blank" rel="noopener">${tok}<div><div class="t1"><span class="pill ${esc(e.kind)}">${label}</span>${esc(name)}</div><div class="t2">${sub}</div></div><div class="amt">${fmt(amt, amt < 0.01 ? 4 : 3)} SOL<span>${e.tokens ? compact(Math.abs(e.tokens)) + ' tokens' : ''}</span></div></a>`;
+  }).join('');
+  ev.forEach(e => seenSigs.add(e.sig)); firstPaint = false;
+}
+
+// ---------- rewards
+let shownTotal = 0;
+function countTo(el, target, suffix) { const from = shownTotal, t0 = performance.now(), dur = 1400; shownTotal = target; function step(now) { const u = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - u, 3); el.innerHTML = compact(from + (target - from) * e) + suffix; if (u < 1) requestAnimationFrame(step); } requestAnimationFrame(step); }
+function renderRewards() {
+  const r = DATA && DATA.rewards;
+  if (!r || !r.enabled) { $('rwPending').classList.remove('hide'); $('rwLive').classList.add('hide'); return; }
+  $('rwPending').classList.add('hide'); $('rwLive').classList.remove('hide');
+  if (Math.abs((r.total_lmao || 0) - shownTotal) > 1e-9) countTo($('rwTotal'), r.total_lmao || 0, '<small>$LMAO</small>');
+  const lp = LMAO_USD; $('rwTotalSub').textContent = lp ? `≈ ${usd(r.total_lmao * lp)} at today's $LMAO price` : '';
+  const ld = r.last_drop; $('tLast').textContent = ld ? ago(ld.ts) : '—'; $('tLastSub').textContent = ld ? `${compact(ld.lmao)} $LMAO to ${fmt(ld.wallets)} wallets` : '';
+  $('tDrops').textContent = fmt(r.drops); $('tWallets').textContent = fmt(r.wallets_paid); $('tVault').textContent = r.vault_lmao == null ? '—' : compact(r.vault_lmao);
+  const h = r.history || []; const mx = Math.max(1, ...h.map(x => x.lmao));
+  $('rwChart').innerHTML = h.map(x => `<div style="height:${Math.max(3, 100 * x.lmao / mx)}%" data-t="${compact(x.lmao)} $LMAO · ${fmt(x.wallets)} wallets · ${ago(x.ts)}"></div>`).join('');
+  $('rwCap0').textContent = h.length ? ago(h[0].ts) : '';
+}
+
+// ---------- marquee + terminal
+function renderMarquee() {
+  const a = DATA && DATA.agent, r = DATA && DATA.rewards, p = PRICE;
+  const sol = LIVE.sol != null ? LIVE.sol : (a ? a.sol : null);
+  const items = [];
+  if (p) { items.push(['$SI', usd(p.price)], ['MCAP', usd(p.mcap)], ['24H VOL', usd(p.vol)]); if (p.chg != null) items.push(['24H', `<span class="${p.chg >= 0 ? 'up' : 'down'}">${p.chg >= 0 ? '+' : ''}${fmt(p.chg, 1)}%</span>`]); }
+  else items.push(['$SI', 'launching soon']);
+  items.push(['AGENT', sol == null ? '—' : fmt(sol, 3) + ' SOL']);
+  if (a) items.push(['BUYS', fmt(a.apes)]);
+  items.push(['$LMAO TO HOLDERS', r && r.enabled ? compact(r.total_lmao) : 'first drop pending']);
+  items.push(['PAIR', '$SI / $LMAO'], ['STATUS', 'do not copy trade']);
+  const html = items.map(([k, v]) => `<span class="mq-item">${k} <b>${v}</b></span><span class="mq-sep">///</span>`).join('');
+  $('mq').innerHTML = html + html;
+}
+let TL = [], tli = 0, tci = 0;
+function termLines() {
+  const a = DATA && DATA.agent, r = DATA && DATA.rewards; const sol = LIVE.sol != null ? LIVE.sol : (a ? a.sol : null); const L = [];
+  if (sol != null) L.push(`> agent balance ${fmt(sol, 3)} SOL`);
+  const e = a && a.events && a.events.find(x => x.kind == 'buy'); if (e) L.push(`> last move: ${e.symbol ? '$' + e.symbol : short(e.mint)} · ${ago(e.ts)}`);
+  if (r && r.enabled) L.push(`> $LMAO paid to holders: ${compact(r.total_lmao)}`);
+  L.push('> scanning callouts', '> chart ugly. holding anyway.', '> do not copy trade.'); return L;
+}
+(function type() { if (!TL.length || tli >= TL.length) { TL = termLines(); tli = 0; } const s = TL[tli]; $('term').innerHTML = '<b>' + esc(s.slice(0, tci)) + '</b><span class="cursor"></span>'; if (tci < s.length) { tci++; setTimeout(type, 38); } else { setTimeout(() => { tli++; tci = 0; type(); }, 1700); } })();
+
+function stamps() {
+  const u = DATA && DATA.updated; const stale = !u || Date.now() / 1000 - u > 45 * 60;
+  for (const id of ['stampA', 'stampR']) { $(id).classList.toggle('stale', stale); $(id).querySelector('span').textContent = u ? `synced ${ago(u)}` : 'waiting for first sync'; }
+}
+
+// ---------- data loops
+function dataUrl() {
+  if (CFG.data_url) return CFG.data_url;
+  const h = location.hostname; if (!h.endsWith('.github.io')) return 'data.json';
+  const owner = h.split('.')[0], seg = location.pathname.split('/').filter(Boolean)[0];
+  const repo = seg && !seg.includes('.') ? seg : h;
+  return `https://raw.githubusercontent.com/${owner}/${repo}/main/data.json`;
+}
+async function loadData() { try { DATA = await getJSON(dataUrl()); } catch (e) { try { DATA = await getJSON('data.json'); } catch (e2) { } } renderAgent(); renderRewards(); renderMarquee(); stamps(); }
+let LMAO_USD = null;
+async function loadPrice() {
+  const ca = (CFG.si_mint || '').trim(); const lm = (CFG.lmao_mint || '').trim(); if (!ca && !lm) return;
+  try {
+    const pairs = await (await fetch('https://api.dexscreener.com/tokens/v1/solana/' + [ca, lm].filter(Boolean).join(','))).json();
+    const best = addr => (pairs || []).filter(p => p.baseToken && p.baseToken.address === addr).sort((x, y) => ((y.liquidity || {}).usd || 0) - ((x.liquidity || {}).usd || 0))[0];
+    const s = ca && best(ca), l = lm && best(lm);
+    if (s) PRICE = { price: +s.priceUsd, mcap: s.marketCap || s.fdv, vol: (s.volume || {}).h24, chg: (s.priceChange || {}).h24 };
+    if (l) LMAO_USD = +l.priceUsd;
+  } catch (e) { }
+  renderMarquee(); renderRewards();
+}
+// optional live layer straight from a public RPC: balance + newest signature
+async function liveRpc() {
+  const w = (CFG.agent_wallet || '').trim(), url = (CFG.live_rpc || '').trim(); if (!w || !url) return;
+  const call = (method, params) => fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }) }).then(r => r.json());
+  try {
+    const [b, s] = await Promise.all([call('getBalance', [w, { commitment: 'confirmed' }]), call('getSignaturesForAddress', [w, { limit: 1 }])]);
+    if (b && b.result) LIVE.sol = b.result.value / 1e9;
+    const top = s && s.result && s.result[0];
+    if (top) { LIVE.sig = top.signature; LIVE.ts = top.blockTime; const known = DATA && DATA.agent && DATA.agent.events && DATA.agent.events.some(e => e.sig === top.signature); const fresh = Date.now() / 1000 - (top.blockTime || 0) < 3600;
+      $('newmove').innerHTML = (!known && fresh && DATA && DATA.agent) ? '<span class="amb">● new move detected · syncing</span>' : ''; }
+  } catch (e) { }
+  renderAgent(); renderMarquee();
+}
+
+// ---------- boot
+window.addEventListener('scroll', () => $('nav').classList.toggle('solid', scrollY > 40), { passive: true });
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+(async () => {
+  try { CFG = await getJSON('config.json'); } catch (e) { CFG = {}; }
+  applyConfig(); await loadData(); loadPrice(); liveRpc();
+  setInterval(loadData, 60 * 1000); setInterval(loadPrice, 30 * 1000); setInterval(liveRpc, 30 * 1000); setInterval(stamps, 20 * 1000);
+})();
+</script>
+</body>
+</html>
