@@ -1,0 +1,33 @@
+name: update callouts
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"      # every 6 hours
+  push:
+    paths: ["callouts.json"]     # and right after you add a new link
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-data
+  cancel-in-progress: false
+
+jobs:
+  callouts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Get the code
+        run: git clone --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" .
+      - name: Build callout previews
+        run: python3 callouts.py
+      - name: Save
+        run: |
+          git config user.name "si-site-bot"
+          git config user.email "si-site-bot@users.noreply.github.com"
+          git add callouts_data.json callouts/auto || true
+          git diff --cached --quiet || git commit -m "callouts $(date -u +%Y-%m-%dT%H:%MZ)"
+          git pull --rebase -q || true
+          git push
