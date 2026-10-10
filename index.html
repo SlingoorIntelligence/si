@@ -699,15 +699,18 @@ function graph() {
   try { ACX = new (window.AudioContext || window.webkitAudioContext)(); const srcN = ACX.createMediaElementSource(AU); AN = ACX.createAnalyser(); AN.fftSize = 4096; AN.smoothingTimeConstant = 0.5; AN.minDecibels = -100; AN.maxDecibels = -10; srcN.connect(AN); AN.connect(ACX.destination); FREQ = new Uint8Array(AN.frequencyBinCount); WAVE = new Uint8Array(AN.fftSize); ACX.resume(); } catch (e) { }
 }
 function startAudio() {
-  graph(); if (AUDIO_ON && !AU.paused) return; AUDIO_ON = true; $('enable').classList.add('off'); $('snd').textContent = 'SOUND ON';
+  graph(); if (AUDIO_ON && !AU.paused) return; AUDIO_ON = true; window.__sst = performance.now(); calmSound();
   AU.play().catch(() => { AUDIO_ON = false; $('enable').classList.remove('off'); sndUI(); });
 }
 $('enable').onclick = e => { e.stopPropagation(); startAudio(); };
-$('snd').onclick = e => { e.stopPropagation(); if (!AUDIO_ON || AU.paused) return startAudio(); AU.muted = !AU.muted; sndUI(); };
+$('snd').onclick = e => { e.stopPropagation(); if (!AUDIO_ON || AU.paused) return startAudio(); if (performance.now() - (window.__sst || 0) < 800) { AU.muted = false; calmSound(); return; }  // this same tap just started the music: don't mute it
+  AU.muted = !AU.muted; sndUI(); };
+function calmSound() { $('enable').classList.add('off'); const b = $('snd'); b.classList.remove('need'); if (b.textContent !== 'SOUND ON') b.textContent = 'SOUND ON'; }  // stop the pulse right away on tap
 function sndUI() { const on = AUDIO_ON && !AU.paused && !AU.muted, b = $('snd'), t = on ? 'SOUND ON' : '\u25B6 PLAY SOUND'; if (b.textContent !== t) b.textContent = t; b.classList.toggle('need', !on); }
 ['play', 'playing', 'pause', 'volumechange', 'emptied'].forEach(ev => AU.addEventListener(ev, () => setTimeout(sndUI, 0)));
+AU.addEventListener('playing', () => { if (AUDIO_ON && !AU.muted) calmSound(); });
 ['pointerdown', 'keydown', 'touchstart'].forEach(ev => window.addEventListener(ev, () => { if (!AUDIO_ON || AU.paused || (ACX && ACX.state !== 'running')) startAudio(); }, { passive: true }));
-setTrack(0); graph(); AU.play().then(() => { if (ACX && ACX.state !== 'running') { AU.pause(); return; } AUDIO_ON = true; $('enable').classList.add('off'); $('snd').textContent = 'SOUND ON'; }).catch(() => {});
+setTrack(0); graph(); AU.play().then(() => { if (ACX && ACX.state !== 'running') { AU.pause(); return; } AUDIO_ON = true; calmSound(); }).catch(() => {});
 window.__track = i => { setTrack(i); if (AUDIO_ON) AU.play().catch(() => {}); };
 
 // ---------- visualizer: a different look for each version
@@ -789,13 +792,13 @@ function drawSped(t) {                           // sped up: mirrored waveform b
 // see-through: the whole visualizer fades with the music. quiet parts ~15%, loudest parts capped at 69%
 // loudness range of each version (measured from the mp3s: quiet intro -> loudest 2%)
 const VREF = { normal: [.10, .444], slowed: [.09, .317], screwed: [.085, .342], spedup: [.11, .446] };
-const OP_MIN = 0.15, OP_MAX = 0.69; let LOP = 0.3, LOPW = -1, OPT = 0;
+const OP_MIN = 0.15, OP_MAX = 0.69, OP_FLOOR = 0.38; let LOP = OP_FLOOR, LOPW = -1, OPT = 0;
 function vizOpacity(t) {
-  const dt = Math.min(0.1, Math.max(0.001, t - OPT)); OPT = t; let target = 0.3;
+  const dt = Math.min(0.1, Math.max(0.001, t - OPT)); OPT = t; let target = OP_FLOOR;
   const wv = waveArr();
   if (wv && !AU.muted) { let sum = 0; for (let i = 0; i < wv.length; i += 4) { const v = (wv[i] - 128) / 128; sum += v * v; } const rms = Math.sqrt(sum / (wv.length / 4));
-    const [lo, hi] = VREF[TRACKS[TI].mode] || [.1, .44], rel = Math.max(0, Math.min(1, (rms - lo) / (hi - lo))); target = OP_MIN + (OP_MAX - OP_MIN) * Math.pow(rel, 1.3); }
-  LOP += (target - LOP) * Math.min(1, dt * (target > LOP ? 14 : 4)); const op = Math.min(OP_MAX, Math.max(0.05, LOP));
+    const [lo, hi] = VREF[TRACKS[TI].mode] || [.1, .44], rel = Math.max(0, Math.min(1, (rms - lo) / (hi - lo))); target = Math.max(OP_FLOOR, OP_MIN + (OP_MAX - OP_MIN) * Math.pow(rel, 1.3)); }  // quiet parts stay readable in front of the video; louder parts use the v10 mapping
+  LOP += (target - LOP) * Math.min(1, dt * (target > LOP ? 14 : 4)); const op = Math.min(OP_MAX, Math.max(OP_FLOOR, LOP));
   if (Math.abs(op - LOPW) > 0.004) { LOPW = op; VZ.style.opacity = op.toFixed(3); }
 }
 function drawViz(now) {
