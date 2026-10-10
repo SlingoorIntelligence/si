@@ -27,7 +27,7 @@ img{max-width:100%}
 .hide{display:none!important}
 /* nav */
 nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
-nav.solid{background:rgba(7,9,11,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
+nav.solid{background:rgba(7,9,11,.96);border-color:var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:14px}
 .logo{font-weight:700;color:var(--amb);text-decoration:none;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
 .logo img{width:26px;height:26px;border-radius:50%}
@@ -35,8 +35,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .navlinks a{text-decoration:none;color:var(--ink2)}
 .navlinks a:hover{color:var(--amb)}
 .live{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--red);letter-spacing:.06em;text-transform:uppercase}
-.live i{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(255,59,59,.6);animation:pulse 1.6s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,59,59,.55)}70%{box-shadow:0 0 0 9px rgba(255,59,59,0)}100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}}
+.live i{position:relative;width:8px;height:8px;border-radius:50%;background:var(--red)}
+.live i::after{content:'';position:absolute;inset:0;border-radius:50%;background:rgba(255,59,59,.55);animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.75}70%{transform:scale(3.2);opacity:0}100%{transform:scale(3.2);opacity:0}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:10px;border:1px solid var(--amb);background:transparent;color:var(--amb);font:700 13px var(--mono);text-decoration:none;cursor:pointer;transition:transform .12s,background .15s,box-shadow .15s;white-space:nowrap}
 .btn:hover{transform:translateY(-1px);background:rgba(255,176,0,.08)}
 .btn.solid{background:var(--amb);color:#140b00;box-shadow:0 0 0 rgba(255,176,0,0)}
@@ -73,8 +74,12 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .screen .glass{position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.05),transparent 35%),radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.45));}
 .screen .scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.2) 0 1px,transparent 1px 3px);opacity:.5}
-.sound{position:absolute;right:14px;top:14px;z-index:4;font:700 11px var(--mono);letter-spacing:.16em;color:#000;background:var(--amb);border:0;padding:7px 11px;cursor:pointer}
-.prog{height:3px;margin:0 12px 12px;background:rgba(255,176,0,.12);position:relative}.prog i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--amb);box-shadow:0 0 10px var(--amb)}
+.sound{position:absolute;right:12px;top:12px;z-index:4;font:700 10px var(--mono);letter-spacing:.16em;color:var(--amb);background:rgba(0,0,0,.55);border:1px solid rgba(255,176,0,.5);padding:5px 8px;cursor:pointer}
+.sound.need{color:#000;background:var(--amb);border-color:var(--amb);font-size:12px;padding:8px 12px;box-shadow:0 0 22px rgba(255,176,0,.55);animation:breathe 1.6s ease-in-out infinite}
+.sound.need::after{content:'';position:absolute;inset:-5px;border:2px solid var(--amb);pointer-events:none;animation:ring 1.6s ease-out infinite}
+@keyframes breathe{50%{transform:scale(1.06)}}
+@keyframes ring{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.35,1.7);opacity:0}}
+.prog{height:3px;margin:0 12px 12px;background:rgba(255,176,0,.12);position:relative}.prog i{position:absolute;left:0;top:0;bottom:0;width:100%;transform:scaleX(0);transform-origin:left center;background:var(--amb);box-shadow:0 0 10px var(--amb)}
 /* persona core */
 .db-core{grid-area:core}
 .core-in{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;padding:14px}
@@ -114,7 +119,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 
 /* audio visualizer over the monitor */
 :root{--viz:#FFB000}
-.screen video{filter:brightness(.62) saturate(.9)}
+.screen .dim{position:absolute;inset:0;z-index:1;pointer-events:none;background:rgba(0,0,0,.28)}
 #viz{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 .np-tag{color:var(--viz)!important;transition:color .4s}
 .db-mon{transition:box-shadow .6s}
@@ -122,7 +127,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .db-mon.m-screwed{box-shadow:0 0 0 1px rgba(182,107,255,.4),0 10px 40px rgba(0,0,0,.45)}
 .db-mon.m-spedup{box-shadow:0 0 0 1px rgba(80,230,255,.35),0 10px 40px rgba(0,0,0,.45)}
 .enable{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);cursor:pointer;border:0;width:100%;color:inherit}
-.enable span{font:700 13px var(--mono);letter-spacing:.24em;color:#000;background:var(--amb);padding:12px 18px;box-shadow:0 0 30px rgba(255,176,0,.45)}
+.enable span{position:relative;font:700 14px var(--mono);letter-spacing:.24em;color:#000;background:var(--amb);padding:14px 22px;box-shadow:0 0 34px rgba(255,176,0,.6);animation:breathe 1.6s ease-in-out infinite}
+.enable span::after{content:'';position:absolute;inset:-6px;border:2px solid var(--amb);pointer-events:none;animation:ring2 1.6s ease-out infinite}
+@keyframes ring2{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.12,1.4);opacity:0}}
 .enable.off{display:none}
 .trk{display:flex;gap:6px;margin:0 12px 10px;flex-wrap:wrap}
 .trk span{font:500 10.5px var(--mono);letter-spacing:.14em;padding:4px 8px;border:1px solid rgba(255,176,0,.18);color:var(--dim)}
@@ -132,7 +139,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 
 .co3{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:stretch}
 .feat{position:relative;display:block;text-decoration:none;border:1px solid rgba(255,176,0,.35);border-radius:16px;overflow:hidden;background:#000;min-height:520px;box-shadow:0 18px 60px rgba(255,176,0,.10)}
-.feat .bgb{position:absolute;inset:-40px;background:#000 url('callout-bg.jpg') center/cover no-repeat;filter:blur(30px) brightness(.38) saturate(1.1);transform:translateZ(0)}
+.feat .bgb{position:absolute;inset:-40px;background:#000 url('callout-bg-blur.jpg') center/cover no-repeat}
 .feat video{position:absolute;top:0;bottom:0;right:4%;height:100%;width:auto;aspect-ratio:9/16;max-width:none;object-fit:contain;filter:brightness(.85);box-shadow:0 0 60px rgba(0,0,0,.6)}
 @media (max-width:900px){.feat{min-height:0;aspect-ratio:auto;padding-top:min(130vw,640px)}.feat video{left:50%;right:auto;transform:translateX(-50%);height:min(130vw,640px);bottom:auto}.feat>.body{max-width:none!important;position:relative!important}.feat>.fx{background:linear-gradient(0deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 30%,rgba(0,0,0,0) 55%)}}
 @media (max-width:700px){.feat{padding-top:0!important;min-height:0!important;height:min(150vw,720px)}.feat video{height:100%!important;top:0;bottom:0}.feat>.body{position:absolute!important;left:0;right:0;bottom:0;padding:18px 18px 20px}.feat>.fx{background:linear-gradient(0deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.7) 22%,rgba(0,0,0,0) 40%)!important}.feat .q{font-size:clamp(22px,6.4vw,30px)}.feat .tag{left:auto!important;right:16px!important}.feat .live2{top:52px!important}}
@@ -343,7 +350,7 @@ footer a{color:var(--ink2)}
 
     <div class="p db-mon" id="mon">
       <div class="ph"><span class="d"></span><span id="np" class="np-tag">AUDIO // SI 2</span><span class="r" id="tc">--:-- / --:--</span><span class="rec">● REC</span></div>
-      <div class="screen"><video id="mv" src="launch.mp4" poster="poster.jpg" muted autoplay loop playsinline preload="metadata"></video><canvas id="viz" width="1280" height="720"></canvas><div class="scan"></div><div class="glass"></div><button class="sound" id="snd">SOUND OFF</button><button class="enable" id="enable"><span>▶ ENABLE AUDIO</span></button></div>
+      <div class="screen"><video id="mv" src="launch.mp4" poster="poster.jpg" muted autoplay loop playsinline preload="metadata"></video><div class="dim"></div><canvas id="viz" width="1280" height="720"></canvas><div class="scan"></div><div class="glass"></div><button class="sound need" id="snd">&#9654; PLAY SOUND</button><button class="enable" id="enable"><span>▶ ENABLE AUDIO</span></button></div>
       <div class="trk" id="trk"><span>SI 2</span><span>SLOWED + REVERB</span><span>CHOPPED &amp; SCREWED</span><span>SPED UP</span></div><div class="prog"><i id="pg"></i></div>
     </div>
 
@@ -515,7 +522,8 @@ function ago(ts) { if (!ts) return '—'; const s = Math.max(0, Date.now() / 100
 const short = a => a ? a.slice(0, 4) + '…' + a.slice(-4) : '';
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-async function getJSON(url) { const r = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(), { cache: 'no-store' }); if (!r.ok) throw new Error(r.status); return r.json(); }
+const TO = ms => (window.AbortSignal && AbortSignal.timeout) ? { signal: AbortSignal.timeout(ms || 9000) } : {};
+async function getJSON(url) { const r = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(), { cache: 'no-store', ...TO() }); if (!r.ok) throw new Error(r.status); return r.json(); }
 
 // ---------- config + links
 function applyConfig() {
@@ -582,17 +590,17 @@ function renderMarquee() {
   items.push(['$LMAO TO HOLDERS', r && r.enabled ? compact(r.total_lmao) : 'first drop pending']);
   items.push(['PAIR', '$SI / $LMAO'], ['STATUS', 'do not copy trade']);
   const html = items.map(([k, v]) => `<span class="mq-item">${k} <b>${v}</b></span><span class="mq-sep">///</span>`).join('');
-  $('mq').innerHTML = html + html;
+  if ($('mq').__h !== html) { $('mq').__h = html; $('mq').innerHTML = html + html; }
 }
 // ---------- hero terminal log: real data first, then the agent's own chatter
 const LOG = []; let logBusy = false, flav = 0, TYP = '';
 const FLAVOR = ['> stop loss: still not found', '> conviction: overflow (expected)', '> lmao.exe running', '> kill switch: not installed', '> persona core temp nominal', '> chart status: being stared at', '> holding.', '> 0 sells detected. good.', '> scanning callouts', '> do not copy trade.'];
 function realLines() {
   const a = DATA && DATA.agent, r = DATA && DATA.rewards, p = PRICE; const sol = LIVE.sol != null ? LIVE.sol : (a ? a.sol : null); const L = [];
-  if (DATA && DATA.updated) L.push(['> chain sync ok · ' + ago(DATA.updated), 'w']);
+  if (DATA && DATA.updated) L.push(['> chain sync ok', 'w']);
   if (sol != null) L.push(['> agent wallet: ' + fmt(sol, 3) + ' SOL', '']);
   const e = a && a.events && a.events.find(x => x.kind == 'buy'); if (e) L.push([`> last buy: ${e.symbol ? '$' + e.symbol : short(e.mint)} · ${ago(e.ts)}`, 'g']);
-  if (p) L.push([`> $SI mcap ${usd(p.mcap)} · 24h ${p.chg >= 0 ? '+' : ''}${fmt(p.chg, 1)}%`, p.chg >= 0 ? 'g' : '']);
+  if (p) L.push([`> $SI mcap ${usd(p.mcap)}` + (p.chg != null ? ` · 24h ${p.chg >= 0 ? '+' : ''}${fmt(p.chg, 1)}%` : ''), p.chg == null || p.chg >= 0 ? 'g' : '']);
   if (r && r.enabled) L.push([`> $LMAO paid to holders: ${compact(r.total_lmao)}`, 'g']);
   if (CALLOUTS.length) L.push([`> callouts on file: ${CALLOUTS.length}`, '']);
   return L;
@@ -600,10 +608,18 @@ function realLines() {
 let RQ = [];
 function logEvent(txt, cls) { RQ.unshift([txt, cls || '']); }
 function nextLine() { if (!RQ.length) { RQ = realLines(); RQ.push([FLAVOR[flav++ % FLAVOR.length], ''], [FLAVOR[flav++ % FLAVOR.length], '']); } return RQ.shift(); }
+let CURTX = null, INPTX = null, LOGKEY = '';
+function renderLog() {                       // full rebuild only when a line starts or the typed-input row appears/disappears
+  const rows = LOG.length > 6 && TYP ? LOG.slice(1) : LOG, last = rows.length - 1, el = $('log');
+  el.innerHTML = rows.map((l, i) => `<div class="ln ${i === last ? 'cur ' : ''}${l.cls}"><span></span>${i === last && !TYP ? '<span class="cursor"></span>' : ''}</div>`).join('') + (TYP ? '<div class="ln inp">&gt; <span></span><span class="cursor"></span></div>' : '');
+  const sp = el.querySelectorAll('.ln > span:first-child'); rows.forEach((l, i) => { sp[i].textContent = l.txt.slice(0, l.n); });
+  CURTX = sp[last] || null; INPTX = TYP ? el.querySelector('.ln.inp > span') : null; if (INPTX) INPTX.textContent = TYP; LOGKEY = (TYP ? 1 : 0) + ':' + LOG.length;
+}
 function typeLog() {
-  const [txt, cls] = nextLine(); LOG.push({ txt, cls, n: 0 }); if (LOG.length > 7) LOG.shift(); const cur = LOG[LOG.length - 1];
-  (function step() { cur.n++; $('log').innerHTML = (LOG.length > 6 && TYP ? LOG.slice(1) : LOG).map((l, i) => `<div class="ln ${i === LOG.length - 1 ? 'cur ' : ''}${l.cls}">${esc(l.txt.slice(0, l.n))}${i === LOG.length - 1 ? '<span class="cursor"></span>' : ''}</div>`).join('');
-    if (TYP) $('log').innerHTML += `<div class="ln inp">&gt; ${esc(TYP)}<span class="cursor"></span></div>`; if (cur.n < cur.txt.length) setTimeout(step, 26); else setTimeout(typeLog, 1300 + Math.random() * 900); })();
+  const [txt, cls] = nextLine(); LOG.push({ txt, cls, n: 0 }); if (LOG.length > 7) LOG.shift(); const cur = LOG[LOG.length - 1]; renderLog();
+  (function step() { cur.n++;
+    if ((TYP ? 1 : 0) + ':' + LOG.length !== LOGKEY || !CURTX) renderLog(); else { CURTX.textContent = cur.txt.slice(0, cur.n); if (INPTX && INPTX.textContent !== TYP) INPTX.textContent = TYP; }
+    if (cur.n < cur.txt.length) setTimeout(step, document.hidden ? 400 : 26); else setTimeout(typeLog, 1300 + Math.random() * 900); })();
 }
 // meter: conviction pinned at the top, flickering
 $('sess').textContent = 'SESSION 0x' + Math.floor(Math.random() * 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
@@ -627,7 +643,9 @@ const CORE = $('core'), KC = CORE.getContext('2d'), PTS = [];
 for (let i = 0; i < 520; i++) { const y = 1 - (i / 519) * 2, r = Math.sqrt(1 - y * y), th = i * 2.399963; PTS.push([Math.cos(th) * r, y, Math.sin(th) * r]); }
 function drawCore(now) {
   const t = now / 1000, W = 560, cx = W / 2, cy = W / 2, R = 190; KC.clearRect(0, 0, W, W); const cyr = Math.cos(t * .35), syr = Math.sin(t * .35), rx = .35, cxr = Math.cos(rx), sxr = Math.sin(rx);
-  for (const [x0, y0, z0] of PTS) { const x1 = x0 * cyr + z0 * syr, z1 = -x0 * syr + z0 * cyr, y2 = y0 * cxr - z1 * sxr, z2 = y0 * sxr + z1 * cxr, s = 1.6 / (2.6 - z2); const a = .12 + .7 * (z2 + 1) / 2; KC.fillStyle = `rgba(255,178,63,${a})`; const sz = 1.4 + 1.8 * (z2 + 1) / 2; KC.fillRect(cx + x1 * R * s - sz / 2, cy + y2 * R * s - sz / 2, sz, sz); }
+  const bk = [[], [], [], [], []];
+  for (const [x0, y0, z0] of PTS) { const x1 = x0 * cyr + z0 * syr, z1 = -x0 * syr + z0 * cyr, y2 = y0 * cxr - z1 * sxr, z2 = y0 * sxr + z1 * cxr, s = 1.6 / (2.6 - z2), d = (z2 + 1) / 2; bk[Math.min(4, (d * 5) | 0)].push(cx + x1 * R * s, cy + y2 * R * s, 1.4 + 1.8 * d); }
+  for (let k = 0; k < 5; k++) { KC.fillStyle = `rgba(255,178,63,${.12 + .7 * (k + .5) / 5})`; const a = bk[k]; for (let i = 0; i < a.length; i += 3) KC.fillRect(a[i] - a[i + 2] / 2, a[i + 1] - a[i + 2] / 2, a[i + 2], a[i + 2]); }
   KC.strokeStyle = 'rgba(255,178,63,.18)'; KC.setLineDash([6, 12]); KC.beginPath(); KC.arc(cx, cy, R * 1.3, t * .2, t * .2 + Math.PI * 2); KC.stroke(); KC.setLineDash([]);
 }
 
@@ -655,9 +673,10 @@ function drawSpark() {
   SPK.lineTo(456, 190); SPK.lineTo(4, 190); SPK.closePath(); const g = SPK.createLinearGradient(0, 30, 0, 190); g.addColorStop(0, `rgba(${col},.25)`); g.addColorStop(1, `rgba(${col},0)`); SPK.fillStyle = g; SPK.fill();
 }
 const mmss = x => isFinite(x) ? String(Math.floor(x / 60)).padStart(2, '0') + ':' + String(Math.floor(x % 60)).padStart(2, '0') : '--:--';
-setInterval(() => { $('tc').textContent = mmss(AU.currentTime) + ' / ' + mmss(AU.duration); $('pg').style.width = (100 * (AU.currentTime / (AU.duration || 1))) + '%';
-  const el = (performance.now() - T0) / 1000, p2 = n => String(Math.floor(n)).padStart(2, '0'); $('up').textContent = p2(el / 3600) + ':' + p2(el / 60 % 60) + ':' + p2(el % 60);
-  const d = new Date(); $('clk').textContent = p2(d.getUTCHours()) + ':' + p2(d.getUTCMinutes()) + ':' + p2(d.getUTCSeconds()); $('temp').textContent = (41 + Math.sin(el / 9) * 2.4).toFixed(1) + '°C'; }, 250);
+const stx = (id, v) => { const e = $(id); if (e && e.textContent !== v) e.textContent = v; };
+setInterval(() => { if (document.hidden) return; stx('tc', mmss(AU.currentTime) + ' / ' + mmss(AU.duration)); $('pg').style.transform = 'scaleX(' + Math.min(1, AU.currentTime / (AU.duration || 1)).toFixed(4) + ')';
+  const el = (performance.now() - T0) / 1000, p2 = n => String(Math.floor(n)).padStart(2, '0'); stx('up', p2(el / 3600) + ':' + p2(el / 60 % 60) + ':' + p2(el % 60));
+  const d = new Date(); stx('clk', p2(d.getUTCHours()) + ':' + p2(d.getUTCMinutes()) + ':' + p2(d.getUTCSeconds())); stx('temp', (41 + Math.sin(el / 9) * 2.4).toFixed(1) + '°C'); }, 250);
 
 // ---------- audio engine: SI 2 -> slowed + reverb -> chopped & screwed -> sped up, on loop
 const TRACKS = [
@@ -677,52 +696,112 @@ function setTrack(i) {
 AU.addEventListener('ended', () => { setTrack(TI + 1); if (AUDIO_ON) AU.play().catch(() => {}); });
 function graph() {
   if (AN) { if (ACX.state !== 'running') ACX.resume(); return; }
-  try { ACX = new (window.AudioContext || window.webkitAudioContext)(); const srcN = ACX.createMediaElementSource(AU); AN = ACX.createAnalyser(); AN.fftSize = 1024; AN.smoothingTimeConstant = 0.78; srcN.connect(AN); AN.connect(ACX.destination); FREQ = new Uint8Array(AN.frequencyBinCount); WAVE = new Uint8Array(AN.fftSize); ACX.resume(); } catch (e) { }
+  try { ACX = new (window.AudioContext || window.webkitAudioContext)(); const srcN = ACX.createMediaElementSource(AU); AN = ACX.createAnalyser(); AN.fftSize = 4096; AN.smoothingTimeConstant = 0.5; AN.minDecibels = -100; AN.maxDecibels = -10; srcN.connect(AN); AN.connect(ACX.destination); FREQ = new Uint8Array(AN.frequencyBinCount); WAVE = new Uint8Array(AN.fftSize); ACX.resume(); } catch (e) { }
 }
 function startAudio() {
   graph(); if (AUDIO_ON && !AU.paused) return; AUDIO_ON = true; $('enable').classList.add('off'); $('snd').textContent = 'SOUND ON';
-  AU.play().catch(() => { AUDIO_ON = false; $('enable').classList.remove('off'); });
+  AU.play().catch(() => { AUDIO_ON = false; $('enable').classList.remove('off'); sndUI(); });
 }
 $('enable').onclick = e => { e.stopPropagation(); startAudio(); };
-$('snd').onclick = e => { e.stopPropagation(); if (!AUDIO_ON) return startAudio(); AU.muted = !AU.muted; $('snd').textContent = AU.muted ? 'SOUND OFF' : 'SOUND ON'; };
+$('snd').onclick = e => { e.stopPropagation(); if (!AUDIO_ON || AU.paused) return startAudio(); AU.muted = !AU.muted; sndUI(); };
+function sndUI() { const on = AUDIO_ON && !AU.paused && !AU.muted, b = $('snd'), t = on ? 'SOUND ON' : '\u25B6 PLAY SOUND'; if (b.textContent !== t) b.textContent = t; b.classList.toggle('need', !on); }
+['play', 'playing', 'pause', 'volumechange', 'emptied'].forEach(ev => AU.addEventListener(ev, () => setTimeout(sndUI, 0)));
 ['pointerdown', 'keydown', 'touchstart'].forEach(ev => window.addEventListener(ev, () => { if (!AUDIO_ON || AU.paused || (ACX && ACX.state !== 'running')) startAudio(); }, { passive: true }));
 setTrack(0); graph(); AU.play().then(() => { if (ACX && ACX.state !== 'running') { AU.pause(); return; } AUDIO_ON = true; $('enable').classList.add('off'); $('snd').textContent = 'SOUND ON'; }).catch(() => {});
 window.__track = i => { setTrack(i); if (AUDIO_ON) AU.play().catch(() => {}); };
 
 // ---------- visualizer: a different look for each version
-const VZ = $('viz'), VC = VZ.getContext('2d'); const PARTS = [];
-function bands(n) { const out = new Array(n).fill(0); if (!FREQ || !AUDIO_ON || AU.paused) { const t = performance.now() / 1000; for (let i = 0; i < n; i++) out[i] = 0.06 + 0.05 * Math.abs(Math.sin(t * 1.3 + i * .4)); return out; }
-  AN.getByteFrequencyData(FREQ); const N = FREQ.length; for (let i = 0; i < n; i++) { const a = Math.floor(Math.pow(i / n, 1.9) * N * .72), b = Math.max(a + 1, Math.floor(Math.pow((i + 1) / n, 1.9) * N * .72)); let s = 0; for (let k = a; k < b; k++) s += FREQ[k]; out[i] = s / (b - a) / 255; } return out; }
-function waveArr() { if (!WAVE || !AUDIO_ON) return null; AN.getByteTimeDomainData(WAVE); return WAVE; }
-function drawViz(now) {
-  const W = 1280, H = 720, t = now / 1000, mode = TRACKS[TI].mode, col = TRACKS[TI].col; const b = bands(64);
-  BASS = (b[0] + b[1] + b[2] + b[3]) / 4; CHOP = Math.max(0, CHOP - 0.06); if (BASS - LASTBASS > 0.12) CHOP = 1; LASTBASS = LASTBASS * .8 + BASS * .2;
-  if (mode === 'slowed') { VC.globalCompositeOperation = 'destination-out'; VC.fillStyle = 'rgba(0,0,0,0.14)'; VC.fillRect(0, 0, W, H); VC.globalCompositeOperation = 'source-over'; } else VC.clearRect(0, 0, W, H);
-  const g = VC.createLinearGradient(0, H * .45, 0, H); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.55)'); if (mode !== 'slowed') { VC.fillStyle = g; VC.fillRect(0, 0, W, H); }
-  VC.save(); VC.shadowColor = col; VC.lineCap = 'round';
-  if (mode === 'normal') {                       // mirrored spectrum bars
-    const n = 48, bw = (W - 160) / (n * 2), y0 = H - 50;
-    for (let i = 0; i < n; i++) { const v = b[i], h = 6 + v * 300; VC.shadowBlur = 14 * v; VC.fillStyle = `rgba(255,${150 + 60 * v | 0},40,${.45 + .55 * v})`;
-      for (const sd of [-1, 1]) { const x = W / 2 + sd * (i + .5) * bw - bw * .36; VC.fillRect(x, y0 - h, bw * .72, h); VC.globalAlpha = .18; VC.fillRect(x, y0 + 6, bw * .72, h * .3); VC.globalAlpha = 1; } }
-  } else if (mode === 'slowed') {                // slow glowing ribbons with long trails
-    const wv = waveArr(); VC.lineWidth = 3;
-    for (let r = 0; r < 3; r++) { VC.beginPath(); VC.shadowBlur = 24; VC.strokeStyle = r === 0 ? 'rgba(255,170,120,.9)' : r === 1 ? 'rgba(255,120,90,.55)' : 'rgba(255,200,160,.35)';
-      for (let i = 0; i <= 200; i++) { const x = i / 200; let y; if (wv) { const k = Math.floor(x * (wv.length - 1)); y = (wv[k] - 128) / 128; } else y = Math.sin(x * 8 + t); const amp = 120 + 380 * BASS;
-        const yy = H * .55 + Math.sin(x * Math.PI * 2 * (1 + r * .5) + t * (.6 + r * .2)) * 40 + y * amp * (0.5 + r * .25) * Math.sin(Math.PI * x);
-        i ? VC.lineTo(x * W, yy) : VC.moveTo(x * W, yy); } VC.stroke(); }
-  } else if (mode === 'screwed') {               // purple ring, wobble, chop flashes
-    const cx = W / 2 + Math.sin(t * .7) * 12, cy = H / 2, R = 150 + 60 * BASS, n = 96; VC.shadowBlur = 18; VC.strokeStyle = 'rgba(182,107,255,.9)'; VC.lineWidth = 3;
-    for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2 - Math.PI / 2, kk = i < n / 2 ? i : n - 1 - i, v = b[Math.floor(kk / (n / 2) * 48)], r2 = R + v * 170; VC.beginPath(); VC.moveTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); VC.lineTo(cx + Math.cos(a) * r2, cy + Math.sin(a) * r2); VC.stroke(); }
-    VC.beginPath(); VC.arc(cx, cy, R - 10, 0, Math.PI * 2); VC.strokeStyle = 'rgba(210,160,255,.5)'; VC.stroke();
-    if (CHOP > .3) { const img = VC.getImageData(0, 0, W, H); for (let k = 0; k < 6; k++) { const y = Math.random() * H | 0, h = 20 + Math.random() * 60 | 0; VC.putImageData(img, (Math.random() - .5) * 60 * CHOP, 0, 0, y, W, h); } VC.fillStyle = `rgba(182,107,255,${.12 * CHOP})`; VC.fillRect(0, 0, W, H); }
-  } else {                                        // sped up: fast neon burst + thin bars
-    const cx = W / 2, cy = H / 2; if (BASS > .35) for (let k = 0; k < 6; k++) { const a = Math.random() * Math.PI * 2, sp = 4 + Math.random() * 10 * BASS; PARTS.push({ x: cx, y: cy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, l: 1 }); }
-    VC.shadowBlur = 12; for (let i = PARTS.length - 1; i >= 0; i--) { const p = PARTS[i]; p.x += p.vx; p.y += p.vy; p.l -= .02; if (p.l <= 0) { PARTS.splice(i, 1); continue; } VC.fillStyle = i % 3 ? `rgba(80,230,255,${p.l})` : `rgba(255,190,60,${p.l})`; VC.fillRect(p.x, p.y, 3, 3); }
-    if (PARTS.length > 600) PARTS.splice(0, PARTS.length - 600);
-    const n = 96, bw = W / n; for (let i = 0; i < n; i++) { const v = b[Math.floor(i / n * 64)], h = 4 + v * 200; VC.fillStyle = `rgba(80,230,255,${.35 + .6 * v})`; VC.fillRect(i * bw + 1, H - 30 - h, bw - 2, h); }
-    VC.beginPath(); VC.arc(cx, cy, 40 + 90 * BASS, 0, Math.PI * 2); VC.strokeStyle = 'rgba(80,230,255,.7)'; VC.lineWidth = 2; VC.stroke();
+// drawn at the canvas's real on-screen size (not a fixed 1280x720), no shadowBlur, paused when off screen
+const VZ = $('viz'), VC = VZ.getContext('2d'), VW = 1280, VH = 720;
+function sizeViz() { const r = VZ.getBoundingClientRect(); if (!r.width) return; const d = Math.min(window.devicePixelRatio || 1, 2), w = Math.round(r.width * d), h = Math.round(r.height * d); if (VZ.width !== w || VZ.height !== h) { VZ.width = w; VZ.height = h; } }
+window.addEventListener('resize', sizeViz); sizeViz();
+// spectrum: log-spaced bands, tilt so the highs show, auto-gain so any device/volume fills the range without turning into a wall
+const NB = (window.innerWidth >= 900 ? 64 : 40), SPEC = new Float32Array(NB), PEAK = new Float32Array(NB), PKT = new Float32Array(NB), RAWB = new Float32Array(NB);
+const EDGES = Array.from({ length: NB + 1 }, (_, i) => 45 * Math.pow(15000 / 45, i / NB));
+let FD = null, AGC = 0.6, LASTT = 0;
+function spectrum(t) {
+  const dt = Math.min(0.1, Math.max(0.001, t - LASTT)); LASTT = t;
+  const live = AN && AUDIO_ON && !AU.paused && !AU.muted;
+  if (!live) { for (let i = 0; i < NB; i++) { const v = .05 + .035 * Math.sin(t * 1.4 + i * .35); SPEC[i] += (v - SPEC[i]) * .08; } }
+  else {
+    if (!FD || FD.length !== AN.frequencyBinCount) FD = new Float32Array(AN.frequencyBinCount);
+    AN.getFloatFrequencyData(FD); const hz = ACX.sampleRate / AN.fftSize; let mx = 0;
+    for (let i = 0; i < NB; i++) { const a = Math.floor(EDGES[i] / hz), b = Math.max(a + 1, Math.ceil(EDGES[i + 1] / hz)); let m = -200;
+      for (let k = a; k < b && k < FD.length; k++) if (FD[k] > m) m = FD[k];
+      const fc = Math.sqrt(EDGES[i] * EDGES[i + 1]); if (fc > 500) m += 3 * Math.log2(fc / 500); const v = Math.max(0, (m + 88) / 60); RAWB[i] = v; if (v > mx) mx = v; }
+    AGC = Math.max(AGC * Math.pow(0.5, dt / 6), mx, 0.3);
+    for (let i = 0; i < NB; i++) { const v = Math.min(1, Math.pow(RAWB[i] / AGC, 1.9)); SPEC[i] += (v - SPEC[i]) * (v > SPEC[i] ? Math.min(1, dt * 30) : Math.min(1, dt * 7)); }
   }
-  VC.restore();
+  for (let i = 0; i < NB; i++) { if (SPEC[i] >= PEAK[i]) { PEAK[i] = SPEC[i]; PKT[i] = t; } else if (t - PKT[i] > 0.35) PEAK[i] = Math.max(SPEC[i], PEAK[i] - dt * 0.9); }
+  BASS = (SPEC[0] + SPEC[1] + SPEC[2] + SPEC[3] + SPEC[4]) / 5; CHOP = Math.max(0, CHOP - dt * 3.5); if (BASS - LASTBASS > 0.14) CHOP = 1; LASTBASS = LASTBASS * .85 + BASS * .15;
+}
+function waveArr() { if (!AN || !AUDIO_ON || AU.paused) return null; if (!WAVE || WAVE.length !== AN.fftSize) WAVE = new Uint8Array(AN.fftSize); AN.getByteTimeDomainData(WAVE); return WAVE; }
+const mir = j => SPEC[j < NB ? NB - 1 - j : j - NB];               // mirrored index: bass in the middle
+function strip(top, a) { const g = VC.createLinearGradient(0, top, 0, VH); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.4, `rgba(0,0,0,${a * .7})`); g.addColorStop(1, `rgba(0,0,0,${a})`); VC.fillStyle = g; VC.fillRect(0, top, VW, VH - top); }
+function scope(y, amp, col, w) { const wv = waveArr(); if (!wv) return; VC.beginPath(); const n = 160, x0 = 70, x1 = VW - 70; for (let i = 0; i <= n; i++) { const k = Math.floor(i / n * (wv.length - 1)), v = (wv[k] - 128) / 128, x = x0 + (x1 - x0) * i / n, yy = y + v * amp * Math.sin(Math.PI * i / n); i ? VC.lineTo(x, yy) : VC.moveTo(x, yy); } VC.strokeStyle = col; VC.lineWidth = w; VC.stroke(); }
+let BARG = null;
+function drawNormal(t) {                         // segmented LED spectrum analyser, peak hold, reflection, scope trace
+  const x0 = 90, x1 = VW - 90, yb = VH - 56, Hm = 230, gap = NB > 48 ? 5 : 8, bw = (x1 - x0 - gap * (NB - 1)) / NB, seg = 10, sg = 4, step = seg + sg, nseg = Math.floor(Hm / step);
+  if (!BARG) { BARG = VC.createLinearGradient(0, yb, 0, yb - Hm); BARG.addColorStop(0, '#FF9A0A'); BARG.addColorStop(.6, '#FFC24E'); BARG.addColorStop(1, '#FFF0C8'); }
+  VC.fillStyle = 'rgba(255,176,0,.07)'; for (let k = 1; k <= 4; k++) VC.fillRect(x0, yb - k * Hm / 4, x1 - x0, 2);
+  VC.fillStyle = 'rgba(255,160,30,.09)';
+  for (let i = 0; i < NB; i++) { const on = Math.round(SPEC[i] * nseg); if (on) VC.fillRect(x0 + i * (bw + gap) - 3, yb - on * step - 3, bw + 6, on * step + 3); }
+  VC.fillStyle = BARG;
+  for (let i = 0; i < NB; i++) { const on = Math.round(SPEC[i] * nseg), x = x0 + i * (bw + gap); for (let s = 0; s < on; s++) VC.fillRect(x, yb - (s + 1) * step + sg, bw, seg); }
+  VC.globalAlpha = .12;
+  for (let i = 0; i < NB; i++) { const on = Math.min(3, Math.round(SPEC[i] * nseg)), x = x0 + i * (bw + gap); for (let s = 0; s < on; s++) VC.fillRect(x, yb + 6 + s * step, bw, seg); }
+  VC.globalAlpha = 1; VC.fillStyle = '#FFF4DC';
+  for (let i = 0; i < NB; i++) { if (PEAK[i] < .03) continue; VC.fillRect(x0 + i * (bw + gap), yb - Math.round(PEAK[i] * nseg) * step - 1, bw, 3); }
+  VC.fillStyle = 'rgba(255,176,0,.35)'; VC.fillRect(x0, yb + 2, x1 - x0, 2);
+  scope(yb - Hm - 34, 28, 'rgba(255,214,140,.6)', 2);
+}
+const HIST = []; let HT = 0;
+function drawSlowed(t) {                         // ridgeline: the spectrum drifts back in slow motion
+  if (t - HT > 0.11) { HIST.unshift(Float32Array.from(SPEC)); HT = t; if (HIST.length > 14) HIST.pop(); }
+  const n = NB * 2, base = VH - 56, amp = 170, cx = VW / 2, span = VW - 200;
+  for (let h = HIST.length - 1; h >= 0; h--) { const s = HIST[h], k = h / 14, sc = 1 - k * .42, yb = base - h * 15, a = Math.pow(1 - k, 1.4);
+    VC.beginPath(); VC.moveTo(cx - span / 2 * sc, yb);
+    for (let j = 0; j < n; j++) { const v = s[j < NB ? NB - 1 - j : j - NB], x = cx + (j / (n - 1) - .5) * span * sc, y = yb - v * amp * sc * Math.sin(Math.PI * (j + .5) / n); VC.lineTo(x, y); }
+    VC.lineTo(cx + span / 2 * sc, yb); VC.closePath(); VC.fillStyle = 'rgba(10,5,4,.6)'; VC.fill();
+    if (h === 0) { VC.strokeStyle = 'rgba(255,138,92,.22)'; VC.lineWidth = 9; VC.stroke(); }
+    VC.strokeStyle = h === 0 ? '#FFB08C' : `rgba(255,138,92,${.15 + .6 * a})`; VC.lineWidth = h === 0 ? 3 : 2; VC.stroke(); }
+}
+let ROT = 0;
+function drawScrewed(t) {                        // purple radial spectrum, slow spin, chopped-glitch slices on the hits
+  ROT += 0.0035; const cx = VW / 2, cy = VH / 2, R = 100 + 28 * BASS, n = NB * 2;
+  const ring = (dx, col, lw) => { VC.beginPath(); for (let j = 0; j < n; j++) { const a = j / n * Math.PI * 2 - Math.PI / 2, v = mir(j), r1 = R + 12, r2 = r1 + 8 + v * 120; VC.moveTo(cx + dx + Math.cos(a) * r1, cy + Math.sin(a) * r1); VC.lineTo(cx + dx + Math.cos(a) * r2, cy + Math.sin(a) * r2); } VC.strokeStyle = col; VC.lineWidth = lw; VC.lineCap = 'round'; VC.stroke(); };
+  if (CHOP > .15) ring(-14 * CHOP, `rgba(80,120,255,${.5 * CHOP})`, 7);
+  ring(0, 'rgba(182,107,255,.22)', 14); ring(0, '#C994FF', 6);
+  VC.lineWidth = 2; VC.strokeStyle = 'rgba(210,170,255,.55)'; VC.beginPath(); VC.arc(cx, cy, R, 0, Math.PI * 2); VC.stroke();
+  VC.setLineDash([4, 14]); VC.strokeStyle = 'rgba(210,170,255,.35)'; VC.beginPath(); VC.arc(cx, cy, R - 26, -ROT * 2, -ROT * 2 + Math.PI * 2); VC.stroke(); VC.setLineDash([]);
+  VC.fillStyle = `rgba(182,107,255,${.18 + .5 * BASS})`; VC.beginPath(); VC.arc(cx, cy, 10 + 26 * BASS, 0, Math.PI * 2); VC.fill();
+  if (CHOP > .35) { const sx = VZ.width / VW, sy = VZ.height / VH; for (let k = 0; k < 5; k++) { const y = Math.random() * VH, h = 14 + Math.random() * 46, dx = (Math.random() - .5) * 90 * CHOP; VC.drawImage(VZ, 0, y * sy, VZ.width, h * sy, dx, y, VW, h); } VC.fillStyle = `rgba(182,107,255,${.08 * CHOP})`; VC.fillRect(0, 0, VW, VH); }
+}
+const STREAK = [];
+function drawSped(t) {                           // sped up: mirrored waveform bars + speed streaks
+  const n = NB * 2, cy = VH * .64, x0 = 60, x1 = VW - 60, bw = (x1 - x0) / n;
+  if (STREAK.length < 70 && Math.random() < .25 + 1.6 * BASS) STREAK.push({ x: -200, y: VH * .2 + Math.random() * VH * .75, l: 60 + Math.random() * 220, s: 22 + Math.random() * 40 + 50 * BASS, a: .25 + Math.random() * .5 });
+  for (let i = STREAK.length - 1; i >= 0; i--) { const p = STREAK[i]; p.x += p.s; if (p.x - p.l > VW) { STREAK.splice(i, 1); continue; } VC.fillStyle = `rgba(120,240,255,${p.a})`; VC.fillRect(p.x - p.l, p.y, p.l, 2); }
+  VC.fillStyle = 'rgba(80,230,255,.1)'; for (let j = 0; j < n; j++) { const h = 3 + mir(j) * 130; VC.fillRect(x0 + j * bw, cy - h - 3, bw - 1, h * 2 + 6); }
+  VC.fillStyle = '#5FE9FF'; for (let j = 0; j < n; j++) { const h = 3 + mir(j) * 130; VC.fillRect(x0 + j * bw + 2, cy - h, bw - 4, h * 2); }
+  VC.fillStyle = 'rgba(220,252,255,.9)'; VC.fillRect(x0, cy - 1, x1 - x0, 2);
+}
+// see-through: the whole visualizer fades with the music. quiet parts ~15%, loudest parts capped at 69%
+// loudness range of each version (measured from the mp3s: quiet intro -> loudest 2%)
+const VREF = { normal: [.10, .444], slowed: [.09, .317], screwed: [.085, .342], spedup: [.11, .446] };
+const OP_MIN = 0.15, OP_MAX = 0.69; let LOP = 0.3, LOPW = -1, OPT = 0;
+function vizOpacity(t) {
+  const dt = Math.min(0.1, Math.max(0.001, t - OPT)); OPT = t; let target = 0.3;
+  const wv = waveArr();
+  if (wv && !AU.muted) { let sum = 0; for (let i = 0; i < wv.length; i += 4) { const v = (wv[i] - 128) / 128; sum += v * v; } const rms = Math.sqrt(sum / (wv.length / 4));
+    const [lo, hi] = VREF[TRACKS[TI].mode] || [.1, .44], rel = Math.max(0, Math.min(1, (rms - lo) / (hi - lo))); target = OP_MIN + (OP_MAX - OP_MIN) * Math.pow(rel, 1.3); }
+  LOP += (target - LOP) * Math.min(1, dt * (target > LOP ? 14 : 4)); const op = Math.min(OP_MAX, Math.max(0.05, LOP));
+  if (Math.abs(op - LOPW) > 0.004) { LOPW = op; VZ.style.opacity = op.toFixed(3); }
+}
+function drawViz(now) {
+  const t = now / 1000, mode = TRACKS[TI].mode; vizOpacity(t);
+  VC.setTransform(VZ.width / VW, 0, 0, VZ.height / VH, 0, 0); VC.clearRect(0, 0, VW, VH);
+  if (mode === 'normal') drawNormal(t); else if (mode === 'slowed') drawSlowed(t); else if (mode === 'screwed') drawScrewed(t); else drawSped(t);
 }
 
 // ---------- persona core: rotating wireframe of the agent
@@ -740,23 +819,40 @@ const HEAD = (() => { const L = [];
   const collar = []; for (let k = 0; k <= 40; k++) { const a = k / 40 * Math.PI * 2; collar.push([0.95 * Math.sin(a), -1.62 - 0.08 * Math.cos(a), 0.55 * Math.cos(a) - .1]); } L.push(collar);
   return { L, visor }; })();
 const HC = $('cam').getContext('2d'); let HBL = 0;
+// static layers drawn once: grid behind, scanlines on top
+const HGRID = document.createElement('canvas'), HSCAN = document.createElement('canvas'); HGRID.width = HGRID.height = HSCAN.width = HSCAN.height = 400;
+(() => { const g = HGRID.getContext('2d'); g.fillStyle = '#030303'; g.fillRect(0, 0, 400, 400); g.strokeStyle = 'rgba(255,176,0,.06)'; g.lineWidth = 1; g.beginPath(); for (let x = 0; x < 400; x += 25) { g.moveTo(x + .5, 0); g.lineTo(x + .5, 400); g.moveTo(0, x + .5); g.lineTo(400, x + .5); } g.stroke();
+  const s = HSCAN.getContext('2d'); s.fillStyle = 'rgba(0,0,0,.2)'; for (let y = 0; y < 400; y += 3) s.fillRect(0, y, 400, 1); })();
+const HBK = 6;
 function drawHead(now) {
-  const t = now / 1000, W = 400, cx = W / 2, cy = W * .44, sc = 128 * (1 + 0.05 * BASS); HC.fillStyle = '#030303'; HC.fillRect(0, 0, W, W);
-  HC.strokeStyle = 'rgba(255,176,0,.06)'; HC.lineWidth = 1; for (let x = 0; x < W; x += 25) { HC.beginPath(); HC.moveTo(x, 0); HC.lineTo(x, W); HC.stroke(); HC.beginPath(); HC.moveTo(0, x); HC.lineTo(W, x); HC.stroke(); }
+  const t = now / 1000, W = 400, cx = W / 2, cy = W * .44, sc = 128 * (1 + 0.05 * BASS); HC.drawImage(HGRID, 0, 0);
   const yaw = 0.42 * Math.sin(t * .45), pit = 0.1 * Math.sin(t * .31) - 0.05, cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pit), sp = Math.sin(pit);
   const P = ([x, y, z]) => { const x1 = x * cyw + z * syw, z1 = -x * syw + z * cyw; const y2 = y * cp - z1 * sp, z2 = y * sp + z1 * cp; const f = 4.2 / (4.2 - z2); return [cx + x1 * sc * f, cy - y2 * sc * f, z2]; };
   const LL = window.__ll && Date.now() - window.__ll < 20000; const col = LL ? '#2BE07A' : TRACKS[TI].col; const rgb = LL ? '43,224,122' : col === '#FFB000' ? '255,176,0' : col === '#FF8A5C' ? '255,138,92' : col === '#B66BFF' ? '182,107,255' : '80,230,255';
-  HC.lineWidth = 1.4 + 1.2 * BASS; HC.shadowColor = `rgb(${rgb})`; HC.shadowBlur = 6 + 10 * BASS;
-  for (const line of HEAD.L) { for (let i = 1; i < line.length; i++) { const a = P(line[i - 1]), b2 = P(line[i]); const d = (a[2] + b2[2]) / 2; HC.strokeStyle = `rgba(${rgb},${0.12 + 0.75 * Math.max(0, Math.min(1, (d + 1.1) / 2.2))})`; HC.beginPath(); HC.moveTo(a[0], a[1]); HC.lineTo(b2[0], b2[1]); HC.stroke(); } }
+  // every segment goes into one of 6 depth buckets -> 6 paths instead of ~1100 separate strokes
+  const paths = Array.from({ length: HBK }, () => new Path2D());
+  for (const line of HEAD.L) { let a = P(line[0]); for (let i = 1; i < line.length; i++) { const b2 = P(line[i]); const d = Math.max(0, Math.min(.999, ((a[2] + b2[2]) / 2 + 1.1) / 2.2)); const p = paths[(d * HBK) | 0]; p.moveTo(a[0], a[1]); p.lineTo(b2[0], b2[1]); a = b2; } }
+  const lw = 1.4 + 1.2 * BASS;
+  for (let k = 0; k < HBK; k++) { const al = 0.12 + 0.75 * (k + .5) / HBK; if (k >= 3) { HC.strokeStyle = `rgba(${rgb},${al * .16})`; HC.lineWidth = lw + 4; HC.stroke(paths[k]); } HC.strokeStyle = `rgba(${rgb},${al})`; HC.lineWidth = lw; HC.stroke(paths[k]); }
   // eyes + smile on the visor
-  if (now > HBL + 150) HBL = now + 2400 + Math.random() * 3500; const bl = now > HBL && now < HBL + 150; HC.shadowBlur = 10; HC.fillStyle = '#FFA530';
-  for (const ex of [-0.32, 0.32]) for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) { if ((i === 0 || i === 4) && (j === 0 || j === 4)) continue; if (bl && j !== 2) continue; const u = ex + (i - 2) * 0.045, v = 0.27 + (j - 2) * 0.035; const p = P(HEAD.visor(u / (0.86 * (1 - 0.35 * v * v)), v)); const s = 3 + 3 * BASS; HC.fillRect(p[0] - s / 2, p[1] - s / 2, s, s); }
+  if (now > HBL + 150) HBL = now + 2400 + Math.random() * 3500; const bl = now > HBL && now < HBL + 150; const s = 3 + 3 * BASS;
+  const dots = []; for (const ex of [-0.32, 0.32]) for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) { if ((i === 0 || i === 4) && (j === 0 || j === 4)) continue; if (bl && j !== 2) continue; const u = ex + (i - 2) * 0.045, v = 0.27 + (j - 2) * 0.035; dots.push(P(HEAD.visor(u / (0.86 * (1 - 0.35 * v * v)), v))); }
+  HC.fillStyle = 'rgba(255,165,48,.22)'; for (const p of dots) HC.fillRect(p[0] - s, p[1] - s, s * 2, s * 2);
+  HC.fillStyle = '#FFA530'; for (const p of dots) HC.fillRect(p[0] - s / 2, p[1] - s / 2, s, s);
   for (let k = 0; k <= 14; k++) { const u = -0.3 + k / 14 * 0.6, v = 0.6 + 0.06 * Math.cos((k / 14 - .5) * Math.PI); const p = P(HEAD.visor(u / (0.86 * (1 - 0.35 * v * v)), v)); HC.fillRect(p[0] - 1.6, p[1] - 1.6, 3.2, 3.2); }
-  HC.shadowBlur = 0; HC.strokeStyle = `rgba(${rgb},.65)`; HC.lineWidth = 3; const L = 26; [[10, 10, 1, 1], [390, 10, -1, 1], [10, 390, 1, -1], [390, 390, -1, -1]].forEach(([x, y, a, b]) => { HC.beginPath(); HC.moveTo(x, y + b * L); HC.lineTo(x, y); HC.lineTo(x + a * L, y); HC.stroke(); });
+  HC.strokeStyle = `rgba(${rgb},.65)`; HC.lineWidth = 3; const L = 26; HC.beginPath(); [[10, 10, 1, 1], [390, 10, -1, 1], [10, 390, 1, -1], [390, 390, -1, -1]].forEach(([x, y, a, b]) => { HC.moveTo(x, y + b * L); HC.lineTo(x, y); HC.lineTo(x + a * L, y); }); HC.stroke();
   HC.fillStyle = `rgba(${rgb},.85)`; HC.font = '500 17px JetBrains Mono, monospace'; HC.fillText('CORE_00 · WIREFRAME', 22, 382);
-  HC.fillStyle = 'rgba(0,0,0,.2)'; for (let y = 0; y < 400; y += 3) HC.fillRect(0, y, 400, 1);
+  HC.drawImage(HSCAN, 0, 0);
 }
-(function loop(now) { drawViz(now); drawHead(now); drawCore(now); requestAnimationFrame(loop); })(0);
+// render loop: viz at full rate, head at half rate, core sphere at quarter rate, nothing draws while off screen or in a background tab
+const VIS = { viz: true, cam: true, core: true };
+if ('IntersectionObserver' in window) { const vo = new IntersectionObserver(es => es.forEach(e => { VIS[e.target.id] = e.isIntersecting; if (e.target.id === 'viz') sizeViz(); }), { rootMargin: '80px' }); ['viz', 'cam', 'core'].forEach(id => vo.observe($(id))); }
+let FRN = 0;
+(function loop(now) { requestAnimationFrame(loop); if (document.hidden) return; FRN++; spectrum(now / 1000); if (VIS.viz) drawViz(now); if (FRN & 1) { if (VIS.cam) drawHead(now); } else if (FRN % 4 === 0 && VIS.core) drawCore(now); })(0);
+// videos only decode while visible
+const VPLAY = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) { const p = v.play(); if (p) p.catch(() => {}); } else v.pause(); }), { rootMargin: '120px' }) : null;
+function watchVideos(root) { if (VPLAY) (root || document).querySelectorAll('video[autoplay]').forEach(v => { if (!v.__w) { v.__w = 1; VPLAY.observe(v); } }); }
+watchVideos();
 
 // ---------- terminal input
 (() => {
@@ -809,7 +905,7 @@ async function loadCallouts() {
     : `<div class="feat"><div class="bgb"></div><video src="callout-bg.mp4" poster="callout-bg.jpg" muted autoplay loop playsinline preload="metadata"></video><div class="fx"></div><span class="tag">LATEST CALL</span><div class="body"><p class="q">first call loading</p></div></div>`;
   const cards = CALLOUTS.slice(1).map((c, i) => `<a class="mini2" href="${esc(c.url)}" target="_blank" rel="noopener"><div class="shot" style="background-image:url('${esc(c.img || 'callout-bg.jpg')}')"></div><div class="meta"><span class="n">#${i + 2}</span>${c.who ? `<span class="who">${esc(c.who)}</span>` : ''}<span class="q">${esc(c.text || 'callout on pump.fun')}</span><span class="go">OPEN ↗</span></div></a>`);
   while (cards.length < 2) cards.push(`<div class="mini2 slot"><div class="shot"></div><div class="meta"><span class="n">#${cards.length + 2}</span><span class="q" style="color:var(--dim)">next call lands here</span></div></div>`);
-  $('co').innerHTML = feat + `<div class="side2">${cards.join('')}</div>`;
+  $('co').innerHTML = feat + `<div class="side2">${cards.join('')}</div>`; if (typeof watchVideos === 'function') watchVideos($('co'));
 }
 
 
@@ -832,7 +928,7 @@ let LMAO_USD = null;
 async function loadPrice() {
   const ca = (CFG.si_mint || '').trim(); const lm = (CFG.lmao_mint || '').trim(); if (!ca && !lm) return;
   try {
-    const pairs = await (await fetch('https://api.dexscreener.com/tokens/v1/solana/' + [ca, lm].filter(Boolean).join(','))).json();
+    const pairs = await (await fetch('https://api.dexscreener.com/tokens/v1/solana/' + [ca, lm].filter(Boolean).join(','), TO())).json();
     const best = addr => (pairs || []).filter(p => p.baseToken && p.baseToken.address === addr).sort((x, y) => ((y.liquidity || {}).usd || 0) - ((x.liquidity || {}).usd || 0))[0];
     const s = ca && best(ca), l = lm && best(lm);
     if (s && (s.marketCap || s.fdv)) { PRICE = { price: +s.priceUsd, mcap: s.marketCap || s.fdv, vol: (s.volume || {}).h24, chg: (s.priceChange || {}).h24, src: 'dex' }; SAMPLES.push(PRICE.price); if (SAMPLES.length > 240) SAMPLES.shift(); } else pumpMarket();
@@ -843,7 +939,7 @@ async function loadPrice() {
 // optional live layer straight from a public RPC: balance + newest signature
 async function liveRpc() {
   const w = (CFG.agent_wallet || '').trim(), url = (CFG.live_rpc || '').trim(); if (!w || !url) return;
-  const call = (method, params) => fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }) }).then(r => r.json());
+  const call = (method, params) => fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }), ...TO() }).then(r => r.json());
   try {
     const [b, s] = await Promise.all([call('getBalance', [w, { commitment: 'confirmed' }]), call('getSignaturesForAddress', [w, { limit: 1 }])]);
     if (b && b.result) LIVE.sol = b.result.value / 1e9;
@@ -861,7 +957,10 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 (async () => {
   try { CFG = await getJSON('config.json'); } catch (e) { CFG = {}; }
   applyConfig(); loadCallouts(); await loadData(); renderDash(); drawSpark(); loadPrice(); liveRpc(); typeLog();
-  setInterval(loadData, 60 * 1000); setInterval(loadPrice, 30 * 1000); setInterval(liveRpc, 30 * 1000); setInterval(stamps, 20 * 1000);
+  const bg = f => () => { if (!document.hidden) f(); };
+  setInterval(bg(loadData), 60 * 1000); setInterval(bg(loadPrice), 30 * 1000); setInterval(bg(liveRpc), 30 * 1000); setInterval(bg(stamps), 20 * 1000);
+  let lastBack = Date.now(); document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - lastBack > 20000) { lastBack = Date.now(); loadData(); loadPrice(); liveRpc(); } else if (document.hidden) lastBack = Date.now(); });
+  sndUI();
 })();
 </script>
 </body>
