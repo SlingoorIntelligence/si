@@ -142,7 +142,18 @@ def token_deltas(tx):
 # ---------------------------------------------------------------------------
 # 1. agent wallet
 # ---------------------------------------------------------------------------
+FEE_LAMPORTS = 200_000     # anything this small is just network/priority fees
+QUOTES = set()             # mints that act like money in a swap ($LMAO, USDC); filled from config in main()
+PARSER_VERSION = 2
+
+
 def parse_agent_tx(tx, agent, sig):
+    """Classify one agent transaction.
+    buy      a token came in, paid with SOL or with a quote token ($LMAO etc.)
+    sell     a token went out, paid back in SOL or a quote token
+    reward   a token came in and nothing was paid (e.g. $LMAO from Pump.fun holder rewards)
+    fund / withdraw / moved   plain SOL or token transfers
+    """
     keys = keys_of(tx)
     meta = tx.get("meta") or {}
     sol_delta = 0
@@ -159,17 +170,32 @@ def parse_agent_tx(tx, agent, sig):
         t = tok.setdefault(mint, [0, dec])
         t[0] += d
     ev = {"ts": tx.get("blockTime") or NOW, "sig": sig, "sol": round(sol_delta / LAMPORTS, 6)}
-    bought = [(m, v) for m, v in tok.items() if v[0] > 0]
-    sold = [(m, v) for m, v in tok.items() if v[0] < 0]
-    if bought:
-        m, (d, dec) = max(bought, key=lambda x: x[1][0])
-        ev.update(kind="buy", mint=m, tokens=d / 10 ** dec)
-    elif sold:
-        m, (d, dec) = min(sold, key=lambda x: x[1][0])
-        ev.update(kind="sell", mint=m, tokens=d / 10 ** dec)
-    elif sol_delta > 0:
+    up = {m: v for m, v in tok.items() if v[0] > 0}
+    down = {m: v for m, v in tok.items() if v[0] < 0}
+    paid_sol = sol_delta < -FEE_LAMPORTS
+    got_sol = sol_delta > FEE_LAMPORTS
+    amt = lambda v: abs(v[0]) / 10 ** v[1]
+    if up and down:                                   # token-for-token swap
+        qd = [m for m in down if m in QUOTES]; qu = [m for m in up if m in QUOTES]
+        if qd and not qu:      # paid with a quote token -> buy
+            m = max(up, key=lambda k: up[k][0]); ev.update(kind="buy", mint=m, tokens=amt(up[m]), pay_mint=qd[0], pay=amt(down[qd[0]]))
+        elif qu and not qd:    # received a quote token -> sell
+            m = min(down, key=lambda k: down[k][0]); ev.update(kind="sell", mint=m, tokens=amt(down[m]), pay_mint=qu[0], pay=amt(up[qu[0]]))
+        else:
+            m = max(up, key=lambda k: up[k][0]); p = min(down, key=lambda k: down[k][0])
+            ev.update(kind="buy", mint=m, tokens=amt(up[m]), pay_mint=p, pay=amt(down[p]))
+    elif up:
+        m = max(up, key=lambda k: up[k][0])
+        if paid_sol:
+            ev.update(kind="buy", mint=m, tokens=amt(up[m]))
+        else:                  # nothing paid: an airdrop / holder reward / transfer in
+            ev.update(kind="reward", mint=m, tokens=amt(up[m]))
+    elif down:
+        m = min(down, key=lambda k: down[k][0])
+        ev.update(kind="sell" if got_sol else "moved", mint=m, tokens=amt(down[m]))
+    elif got_sol:
         ev.update(kind="fund")
-    elif sol_delta < 0 and abs(sol_delta) > 100_000:  # bigger than a fee: a withdrawal / transfer out
+    elif paid_sol:
         ev.update(kind="withdraw")
     else:
         return None
@@ -181,13 +207,17 @@ def update_agent(cfg, state):
     if not agent:
         return None
     st = state.setdefault("agent", {"last_sig": None, "events": [], "apes": 0, "spent": 0.0, "funded": 0.0})
+    if st.get("parser") != PARSER_VERSION:       # re-read history once with the current parser
+        st.clear(); st.update({"last_sig": None, "events": [], "apes": 0, "spent": 0.0, "funded": 0.0, "parser": PARSER_VERSION})
     for s in new_signatures(agent, st["last_sig"], FIRST_RUN_AGENT):
         if out_of_time():
             break
         try:
             tx = None if s.get("err") else get_tx(s["signature"])
         except Exception as e:
-            print("skip tx", s["signature"], e); tx = None
+            f = st.setdefault("fails", {}); f[s["signature"]] = f.get(s["signature"], 0) + 1
+            if f[s["signature"]] < 3: print("retry next run", s["signature"], e); break
+            print("skip tx after 3 tries", s["signature"]); tx = None
         if tx:
             ev = parse_agent_tx(tx, agent, s["signature"])
             if ev:
@@ -197,6 +227,7 @@ def update_agent(cfg, state):
                     st["spent"] += max(0.0, -ev["sol"])
                 elif ev["kind"] == "fund":
                     st["funded"] += ev["sol"]
+        st.get("fails", {}).pop(s["signature"], None)
         st["last_sig"] = s["signature"]
     st["events"] = st["events"][-MAX_EVENTS_KEPT:]
     bal = (rpc("getBalance", [agent, {"commitment": "confirmed"}]) or {}).get("value", 0) / LAMPORTS
@@ -217,7 +248,12 @@ def update_rewards(cfg, state):
     for s in new_signatures(vault, st["last_sig"], FIRST_RUN_VAULT):
         if out_of_time():
             break
-        tx = None if s.get("err") else get_tx(s["signature"])
+        try:
+            tx = None if s.get("err") else get_tx(s["signature"])
+        except Exception as e:
+            f = st.setdefault("fails", {}); f[s["signature"]] = f.get(s["signature"], 0) + 1
+            if f[s["signature"]] < 3: print("retry next run", s["signature"], e); break
+            print("skip tx after 3 tries", s["signature"]); tx = None
         if tx:
             keys = keys_of(tx)
             paid, got = 0, set()
@@ -248,6 +284,7 @@ def update_rewards(cfg, state):
                 for d in drops[:-1]:
                     d.pop("_w", None)      # only the open drop needs its wallet list
                 st["drops"] = drops[-120:]
+        st.get("fails", {}).pop(s["signature"], None)
         st["last_sig"] = s["signature"]
     st["wallets"] = sorted(wallets)
     dec = st["decimals"]
@@ -273,9 +310,59 @@ def update_rewards(cfg, state):
 # ---------------------------------------------------------------------------
 # token names and logos for the agent's buys
 # ---------------------------------------------------------------------------
+
+PUMP_COIN = "https://frontend-api-v3.pump.fun/coins-v2/{}"
+
+
+def pump_coin(mint):
+    """Public Pump.fun coin info (name, symbol, image, market cap). Falls back to curl if Cloudflare blocks urllib."""
+    url = PUMP_COIN.format(mint)
+    hdr = {"user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36", "accept": "application/json", "origin": "https://pump.fun", "referer": "https://pump.fun/"}
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers=hdr), timeout=20) as r:
+            return json.loads(r.read().decode())
+    except Exception:
+        try:
+            import subprocess
+            out = subprocess.run(["curl", "-sS", "-m", "20", "-H", "accept: application/json", "-H", "origin: https://pump.fun", "-A", hdr["user-agent"], url], capture_output=True, text=True, timeout=25).stdout
+            return json.loads(out)
+        except Exception as e:
+            print("pump.fun lookup failed for", mint, "-", e)
+            return None
+
+
+def pick(d, *names):
+    for n in names:
+        v = d.get(n) if isinstance(d, dict) else None
+        if v not in (None, ""):
+            return v
+    return None
+
+
+def market(cfg):
+    """$SI market cap and price. On the bonding curve DexScreener has nothing, so Pump.fun is the source."""
+    ca = (cfg.get("si_mint") or "").strip()
+    if not ca:
+        return None
+    c = pump_coin(ca)
+    if c:
+        mc = pick(c, "usd_market_cap", "usdMarketCap", "market_cap_usd")
+        supply = pick(c, "total_supply", "totalSupply")
+        dec = pick(c, "decimals") or 6
+        if mc:
+            price = None
+            try:
+                price = float(mc) / (float(supply) / 10 ** int(dec)) if supply else float(mc) / 1e9
+            except Exception:
+                pass
+            return {"source": "pump.fun", "mcap": float(mc), "price": price, "complete": bool(pick(c, "complete")), "ts": NOW}
+    return None
+
 def token_meta(mints, state):
     cache = state.setdefault("meta", {})
-    need = [m for m in mints if m not in cache][:100]
+    need = [m for m in mints if m not in cache or not cache[m].get("image")][:100]
+    for m in need:
+        cache.pop(m, None)
     if need and env("HELIUS_API_KEY"):
         try:
             res = rpc("getAssetBatch", {"ids": need}) or []
@@ -298,12 +385,21 @@ def token_meta(mints, state):
                     cache[b["address"]] = {"name": b.get("name", ""), "symbol": b.get("symbol", ""), "image": (p.get("info") or {}).get("imageUrl", "")}
         except Exception as e:
             print("dexscreener lookup failed:", e)
+    for m in need:
+        if m in cache and cache[m].get("image") and cache[m].get("symbol"):
+            continue
+        c = pump_coin(m)
+        if c:
+            prev = cache.get(m, {})
+            cache[m] = {"name": prev.get("name") or pick(c, "name") or "", "symbol": prev.get("symbol") or pick(c, "symbol") or "",
+                        "image": prev.get("image") or pick(c, "image_uri", "imageUri", "image") or ""}
     return cache
 
 
 def main():
     cfg = json.loads(CONFIG.read_text())
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
+    QUOTES.update(m for m in [(cfg.get("lmao_mint") or "").strip(), "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"] if m)
     agent = rewards = None
     try:
         agent = update_agent(cfg, state)
@@ -315,13 +411,20 @@ def main():
         print("rewards update failed:", e)
     old = json.loads(DATA.read_text()) if DATA.exists() else {}
     if agent:
-        meta = token_meta({e["mint"] for e in agent["events"] if e.get("mint")}, state)
+        meta = token_meta({e["mint"] for e in agent["events"] if e.get("mint")} | {e["pay_mint"] for e in agent["events"] if e.get("pay_mint")}, state)
         for e in agent["events"]:
             if e.get("mint"):
                 e.update(meta.get(e["mint"], {}))
+            if e.get("pay_mint"):
+                e["pay_symbol"] = (meta.get(e["pay_mint"]) or {}).get("symbol") or ""
     data = {"updated": NOW, "updated_iso": datetime.fromtimestamp(NOW, timezone.utc).isoformat(timespec="seconds"),
             "agent": agent if agent is not None else old.get("agent"),
-            "rewards": rewards if rewards is not None else old.get("rewards", {"enabled": False})}
+            "rewards": rewards if rewards is not None else old.get("rewards", {"enabled": False}),
+            "market": None}
+    try:
+        data["market"] = market(cfg) or old.get("market")
+    except Exception as e:
+        print("market lookup failed:", e); data["market"] = old.get("market")
     DATA.write_text(json.dumps(data, indent=1))
     STATE.write_text(json.dumps(state, separators=(",", ":")))
     a = data["agent"] or {}

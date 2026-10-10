@@ -6,5 +6,6 @@
   "x_url": "https://x.com/slingoorintel",
   "telegram_url": "",
   "reward_vault": "GPAsJMijpLnfAtEtboXonPUC53WmFYpLHAfcpsRVxtE4",
-  "live_rpc": "https://api.mainnet-beta.solana.com"
+  "live_rpc": "https://api.mainnet-beta.solana.com",
+  "chart_embed_url": ""
 }
