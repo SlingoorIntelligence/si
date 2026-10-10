@@ -1,14 +1,36 @@
 {
- "updated": 1791643937,
- "updated_iso": "2026-10-10T14:52:17+00:00",
+ "updated": 1791644679,
+ "updated_iso": "2026-10-10T15:04:39+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "sol": 0.5264,
   "start_sol": 1.0,
-  "apes": 15,
+  "apes": 17,
   "spent_sol": 0.5055,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791644505,
+    "sig": "4q3dFLbZKynLCiHgQbMRMfvFqouA2dGaWKaXbr27nctvDn3Xx8hbSq4dujnGrpSGgXphKmgjpCX8Yjv5jKPgnehE",
+    "sol": 0.0,
+    "kind": "buy",
+    "mint": "H74CYmXgMkYHYuSRsZt6RJb4NYp2u72Vw8BS5huApump",
+    "tokens": 397.230848,
+    "name": "LMAO!",
+    "symbol": "LMAO!",
+    "image": "https://ipfs.io/ipfs/bafkreic2k6vq5rorto4kll3gtpux6yfllmioipbrt3uebwaovghmjajr5m"
+   },
+   {
+    "ts": 1791644126,
+    "sig": "3EhqD6Q83XJ1d8MUn9Q6NEsr35kjBKYbtNNhNDpTgu5hcZBBUoVvnkCwNeKVMGsfif5Acddw4apUUpcd42GVXfma",
+    "sol": 0.0,
+    "kind": "buy",
+    "mint": "H74CYmXgMkYHYuSRsZt6RJb4NYp2u72Vw8BS5huApump",
+    "tokens": 97.485399,
+    "name": "LMAO!",
+    "symbol": "LMAO!",
+    "image": "https://ipfs.io/ipfs/bafkreic2k6vq5rorto4kll3gtpux6yfllmioipbrt3uebwaovghmjajr5m"
+   },
    {
     "ts": 1791642536,
     "sig": "3grwrqy6ZV3V9YAoAHD8Evcy3WgKAhwdPnNmCmrkJfJwPCgyc3JNqauDZorEc6TnpF5tsgy5gxzXZSw2BbF4HNmh",
@@ -202,15 +224,15 @@
  "rewards": {
   "enabled": true,
   "vault": "GPAsJMijpLnfAtEtboXonPUC53WmFYpLHAfcpsRVxtE4",
-  "total_lmao": 131113.674665,
-  "fees_in_lmao": 135894.044592,
-  "vault_lmao": 4780.369927,
-  "drops": 7,
-  "wallets_paid": 163,
+  "total_lmao": 174007.34746,
+  "fees_in_lmao": 178631.799464,
+  "vault_lmao": 4624.452004,
+  "drops": 8,
+  "wallets_paid": 182,
   "last_drop": {
-   "ts": 1791642544,
-   "lmao": 19770.509659,
-   "wallets": 64
+   "ts": 1791644513,
+   "lmao": 42893.672795,
+   "wallets": 67
   },
   "history": [
    {
@@ -247,6 +269,11 @@
     "ts": 1791642536,
     "lmao": 19770.509659,
     "wallets": 64
+   },
+   {
+    "ts": 1791644126,
+    "lmao": 42893.672795,
+    "wallets": 67
    }
   ]
  }
