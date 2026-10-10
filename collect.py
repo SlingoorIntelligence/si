@@ -112,7 +112,7 @@ def new_signatures(address, last_sig, first_run_limit):
 
 
 def get_tx(sig):
-    return rpc("getTransaction", [sig, {"encoding": "jsonParsed", "maxSupportedTransactionVersion": 0, "commitment": "confirmed"}])
+    return rpc("getTransaction", [sig, {"encoding": "jsonParsed", "maxSupportedTransactionVersion": 1, "commitment": "confirmed"}])
 
 
 def keys_of(tx):
@@ -184,7 +184,10 @@ def update_agent(cfg, state):
     for s in new_signatures(agent, st["last_sig"], FIRST_RUN_AGENT):
         if out_of_time():
             break
-        tx = None if s.get("err") else get_tx(s["signature"])
+        try:
+            tx = None if s.get("err") else get_tx(s["signature"])
+        except Exception as e:
+            print("skip tx", s["signature"], e); tx = None
         if tx:
             ev = parse_agent_tx(tx, agent, s["signature"])
             if ev:
