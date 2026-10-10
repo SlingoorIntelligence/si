@@ -1,14 +1,25 @@
 {
- "updated": 1791602584,
- "updated_iso": "2026-10-10T03:23:04+00:00",
+ "updated": 1791603696,
+ "updated_iso": "2026-10-10T03:41:36+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
-  "sol": 0.6502,
+  "sol": 0.5821,
   "start_sol": 1.0,
-  "apes": 5,
-  "spent_sol": 0.3358,
+  "apes": 6,
+  "spent_sol": 0.404,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791603694,
+    "sig": "4dnDRX4GqPZqVMJ9v7JnEjikCWiagcTbhPZjhs2RzGiLWjd1bDQiQ7gCVxsm8u9h618fihJuAiw4rreuaYFx1pzC",
+    "sol": -0.068137,
+    "kind": "buy",
+    "mint": "8uA5fVLw2TeK3UMympuorTXNY7ni8qpuW4MdfP6apump",
+    "tokens": 426238.122307,
+    "name": "Slingoorio",
+    "symbol": "slingoor",
+    "image": "https://ipfs.io/ipfs/bafkreiebt5bw5txjrix7wpbxgl5ffcuhmdlv4kqs3me5hbloqbo727nywq"
+   },
    {
     "ts": 1791601363,
     "sig": "biJUSyNry2ea2LkhyT74fxqvnkR7TVd8NtKwhGK1w9HSJf2WkJTFqUvMEd3PQPM9k22z2zoXKW1Dcm5NqJ8ArAi",
@@ -79,6 +90,24 @@
   ]
  },
  "rewards": {
-  "enabled": false
+  "enabled": true,
+  "vault": "GPAsJMijpLnfAtEtboXonPUC53WmFYpLHAfcpsRVxtE4",
+  "total_lmao": 13454.753721,
+  "fees_in_lmao": 14529.801333,
+  "vault_lmao": 1075.047612,
+  "drops": 1,
+  "wallets_paid": 24,
+  "last_drop": {
+   "ts": 1791594930,
+   "lmao": 13454.753721,
+   "wallets": 24
+  },
+  "history": [
+   {
+    "ts": 1791594922,
+    "lmao": 13454.753721,
+    "wallets": 24
+   }
+  ]
  }
 }
