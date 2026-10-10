@@ -1,14 +1,25 @@
 {
- "updated": 1791608756,
- "updated_iso": "2026-10-10T05:05:56+00:00",
+ "updated": 1791609720,
+ "updated_iso": "2026-10-10T05:22:00+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "sol": 0.5821,
   "start_sol": 1.0,
-  "apes": 6,
+  "apes": 7,
   "spent_sol": 0.404,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791609353,
+    "sig": "2VKdYaWapmcZ4cPxto7i6FdxYJgTrnisVb4dS5N12MB7uEkELuMAPgzWDawRwj2qktAsfxG2Ufh1RKD8ScAfa3BM",
+    "sol": 0.0,
+    "kind": "buy",
+    "mint": "H74CYmXgMkYHYuSRsZt6RJb4NYp2u72Vw8BS5huApump",
+    "tokens": 317.531347,
+    "name": "LMAO!",
+    "symbol": "LMAO!",
+    "image": "https://ipfs.io/ipfs/bafkreic2k6vq5rorto4kll3gtpux6yfllmioipbrt3uebwaovghmjajr5m"
+   },
    {
     "ts": 1791603694,
     "sig": "4dnDRX4GqPZqVMJ9v7JnEjikCWiagcTbhPZjhs2RzGiLWjd1bDQiQ7gCVxsm8u9h618fihJuAiw4rreuaYFx1pzC",
@@ -92,21 +103,26 @@
  "rewards": {
   "enabled": true,
   "vault": "GPAsJMijpLnfAtEtboXonPUC53WmFYpLHAfcpsRVxtE4",
-  "total_lmao": 13454.753721,
-  "fees_in_lmao": 14529.801333,
-  "vault_lmao": 1075.047612,
-  "drops": 1,
-  "wallets_paid": 24,
+  "total_lmao": 47583.33858,
+  "fees_in_lmao": 50091.190761,
+  "vault_lmao": 2507.852181,
+  "drops": 2,
+  "wallets_paid": 85,
   "last_drop": {
-   "ts": 1791594930,
-   "lmao": 13454.753721,
-   "wallets": 24
+   "ts": 1791609361,
+   "lmao": 34128.584859,
+   "wallets": 75
   },
   "history": [
    {
     "ts": 1791594922,
     "lmao": 13454.753721,
     "wallets": 24
+   },
+   {
+    "ts": 1791609353,
+    "lmao": 34128.584859,
+    "wallets": 75
    }
   ]
  }
