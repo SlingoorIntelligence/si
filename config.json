@@ -1,9 +1,9 @@
 {
   "si_mint": "",
-  "lmao_mint": "",
-  "agent_wallet": "",
+  "lmao_mint": "H74CYmXgMkYHYuSRsZt6RJb4NYp2u72Vw8BS5huApump",
+  "agent_wallet": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "start_sol": 1.0,
-  "x_url": "",
+  "x_url": "https://x.com/slingoorintel",
   "telegram_url": "",
   "reward_vault": "",
   "live_rpc": "https://api.mainnet-beta.solana.com"

@@ -324,6 +324,7 @@ function applyConfig() {
   if (CFG.x_url) $('xlink').href = CFG.x_url; else $('xlink').classList.add('hide');
   if (CFG.telegram_url) $('tglink').href = CFG.telegram_url; else $('tglink').classList.add('hide');
   const w = (CFG.agent_wallet || '').trim();
+  if (w) $('pfollow').href = 'https://pump.fun/profile/' + w;
   $('waddr').innerHTML = w ? `wallet: <a href="https://solscan.io/account/${esc(w)}" target="_blank" rel="noopener">${esc(w)}</a>` : '';
 }
 $('copy').onclick = async () => { const ca = (CFG.si_mint || '').trim(); try { await navigator.clipboard.writeText(ca); } catch (e) { const r = document.createRange(); r.selectNode($('ca')); getSelection().removeAllRanges(); getSelection().addRange(r); document.execCommand('copy'); } $('toast').classList.add('on'); setTimeout(() => $('toast').classList.remove('on'), 1300); };
@@ -442,5 +443,24 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   setInterval(loadData, 60 * 1000); setInterval(loadPrice, 30 * 1000); setInterval(liveRpc, 30 * 1000); setInterval(stamps, 20 * 1000);
 })();
 </script>
+<style>
+#pfollow{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;align-items:center;gap:10px;padding:10px 14px 10px 10px;border-radius:14px;background:#111;border:1px solid #f5a623;color:#fff;text-decoration:none;font:600 14px/1.2 inherit;box-shadow:0 0 0 0 rgba(245,166,35,.6);animation:pfpulse 2.4s infinite,pfbob 3.2s ease-in-out infinite}
+#pfollow img{width:38px;height:38px;border-radius:10px;object-fit:cover}
+#pfollow small{display:block;opacity:.65;font-weight:400;font-size:11px}
+#pfollow:hover{background:#1c1c1c}
+@keyframes pfpulse{0%{box-shadow:0 0 0 0 rgba(245,166,35,.55)}70%{box-shadow:0 0 0 14px rgba(245,166,35,0)}100%{box-shadow:0 0 0 0 rgba(245,166,35,0)}}
+@keyframes pfbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media(max-width:600px){#pfollow{right:10px;bottom:10px;padding:8px 10px 8px 8px}#pfollow img{width:30px;height:30px}}
+/*pfpad*/footer{padding-bottom:90px}
+#pfollow .pfword{color:#02fd94;font-weight:700}
+#pfollow .pfpill{font-style:normal;display:inline-flex;align-items:center;gap:6px;margin-left:4px;padding:5px 11px;border-radius:9999px;background:#02fd94;color:#0b0b0e;font-weight:700;font-size:12px;letter-spacing:.01em;box-shadow:0 0 0 1px #02fd9424,0 0 12px #02fd9440}
+#pfollow .pflogo{width:20px!important;height:20px!important;border-radius:6px!important;margin:-2px 0}
+#pfollow .pfdot{width:7px;height:7px;border-radius:50%;background:#0b0b0e;animation:pfblink 1.4s infinite}
+#pfollow:hover .pfpill{background:#00e586}
+@keyframes pfblink{50%{opacity:.25}}
+@media(max-width:600px){#pfollow{opacity:0;pointer-events:none;transition:opacity .3s}#pfollow.pfshow{opacity:1;pointer-events:auto}body{padding-bottom:84px}#pfollow{right:12px;bottom:12px;padding:6px;gap:0;border-radius:9999px}#pfollow>img,#pfollow>span{display:none}#pfollow .pfpill{margin:0;padding:6px 12px 6px 6px;font-size:13px;gap:6px}#pfollow .pflogo{width:26px!important;height:26px!important;border-radius:50%!important;margin:0}}
+</style>
+<a id="pfollow" href="https://pump.fun" target="_blank" rel="noopener"><img src="agent.jpg" alt=""><span>follow me on <b class="pfword">pump.fun</b><small>watch the agent trade</small></span><i class="pfpill"><img class="pflogo" src="pumplogo.png" alt="">pump.fun</i></a>
+<script>(function(){var b=document.getElementById("pfollow"),h=document.querySelector(".hero");function t(){var y=h?h.offsetTop+h.offsetHeight-200:500;b.classList.toggle("pfshow",scrollY>y)}addEventListener("scroll",t,{passive:true});t()})();</script>
 </body>
 </html>
