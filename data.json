@@ -1,14 +1,25 @@
 {
- "updated": 1791600626,
- "updated_iso": "2026-10-10T02:50:26+00:00",
+ "updated": 1791601560,
+ "updated_iso": "2026-10-10T03:06:00+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
-  "sol": 0.7643,
+  "sol": 0.6502,
   "start_sol": 1.0,
-  "apes": 4,
-  "spent_sol": 0.2217,
+  "apes": 5,
+  "spent_sol": 0.3358,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791601363,
+    "sig": "biJUSyNry2ea2LkhyT74fxqvnkR7TVd8NtKwhGK1w9HSJf2WkJTFqUvMEd3PQPM9k22z2zoXKW1Dcm5NqJ8ArAi",
+    "sol": -0.114092,
+    "kind": "buy",
+    "mint": "489jhyzn5SejxSFGungp3dmLntfUDCdvLKnxyzNDpump",
+    "tokens": 20996.741759,
+    "name": "Super Intelligent Beauty",
+    "symbol": "SIB",
+    "image": "https://axiomtrading.sfo3.cdn.digitaloceanspaces.com/GNhBuwdWh8yYBfLAHdHHjvrXbqchrbrkcrwnsuCbs2t8.webp"
+   },
    {
     "ts": 1791594922,
     "sig": "5B1uGqvvHJtRqmdVdvUySaMzo1AGBdgvbZRtVxvjnYShS7YFySoVroc2qNB2ZGSFgtbKQTPf8W7H8VzANdJBMiZY",
