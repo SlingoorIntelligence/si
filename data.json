@@ -1,14 +1,25 @@
 {
- "updated": 1791613696,
- "updated_iso": "2026-10-10T06:28:16+00:00",
+ "updated": 1791614942,
+ "updated_iso": "2026-10-10T06:49:02+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
-  "sol": 0.5821,
+  "sol": 0.6279,
   "start_sol": 1.0,
   "apes": 9,
   "spent_sol": 0.404,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791614561,
+    "sig": "2JLXgX5rZ5btGkLdfDMbt4yD5L42X5VSZXMsqdg233cEsTgcbGskCfznxd5aDJN3VuoziviD2hkLCNTgvfyG7egW",
+    "sol": 0.045805,
+    "kind": "sell",
+    "mint": "8uA5fVLw2TeK3UMympuorTXNY7ni8qpuW4MdfP6apump",
+    "tokens": -426238.122307,
+    "name": "Slingoorio",
+    "symbol": "slingoor",
+    "image": "https://ipfs.io/ipfs/bafkreiebt5bw5txjrix7wpbxgl5ffcuhmdlv4kqs3me5hbloqbo727nywq"
+   },
    {
     "ts": 1791612002,
     "sig": "2DeABJhptsvY5bfmQd5eoGJ1qQpSmRFpmJy9FXs1DYqghc6mjjtA45iW7dtGu1USu5neSt4gfbXTcdcE4yXZThw",
