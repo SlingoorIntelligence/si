@@ -1,14 +1,36 @@
 {
- "updated": 1791618738,
- "updated_iso": "2026-10-10T07:52:18+00:00",
+ "updated": 1791619502,
+ "updated_iso": "2026-10-10T08:05:02+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
-  "sol": 0.6279,
+  "sol": 0.5264,
   "start_sol": 1.0,
-  "apes": 9,
-  "spent_sol": 0.404,
+  "apes": 11,
+  "spent_sol": 0.5055,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791619355,
+    "sig": "2fmAXFyygkeNVb9GKzHGV1dMqZY4yjMnrBdvu32Hi8YPYG5PG2Eup5cEqZYt6jY6aHG24m4KS6939H3VqEiHq3nm",
+    "sol": 0.0,
+    "kind": "buy",
+    "mint": "H74CYmXgMkYHYuSRsZt6RJb4NYp2u72Vw8BS5huApump",
+    "tokens": 83.606056,
+    "name": "LMAO!",
+    "symbol": "LMAO!",
+    "image": "https://ipfs.io/ipfs/bafkreic2k6vq5rorto4kll3gtpux6yfllmioipbrt3uebwaovghmjajr5m"
+   },
+   {
+    "ts": 1791619156,
+    "sig": "25BpGvMDqJ44Ypnmf5iyXLtt4hrexksEmSgY7ePrdvWUXWMkJWty44oqUwqG4B1derBK3AH6msZU7BHbdP1PdbMw",
+    "sol": -0.101533,
+    "kind": "buy",
+    "mint": "8nnaeWCw8mUypcGAgbmSuzAT85uWx4UN12adDrMhXrGF",
+    "tokens": 1992.810525,
+    "name": "Hot Bot",
+    "symbol": "HOTBOT",
+    "image": "https://ipfs.io/ipfs/bafybeic3skemodhj3njjkokjlbptmsv5rezl7b2sxngf4x6bagbaa5uuaa"
+   },
    {
     "ts": 1791614561,
     "sig": "2JLXgX5rZ5btGkLdfDMbt4yD5L42X5VSZXMsqdg233cEsTgcbGskCfznxd5aDJN3VuoziviD2hkLCNTgvfyG7egW",
@@ -136,15 +158,15 @@
  "rewards": {
   "enabled": true,
   "vault": "GPAsJMijpLnfAtEtboXonPUC53WmFYpLHAfcpsRVxtE4",
-  "total_lmao": 78060.228567,
-  "fees_in_lmao": 79800.095685,
-  "vault_lmao": 1739.867118,
-  "drops": 3,
-  "wallets_paid": 93,
+  "total_lmao": 84615.821034,
+  "fees_in_lmao": 87533.465111,
+  "vault_lmao": 2917.644077,
+  "drops": 4,
+  "wallets_paid": 111,
   "last_drop": {
-   "ts": 1791612009,
-   "lmao": 10232.418363,
-   "wallets": 24
+   "ts": 1791619363,
+   "lmao": 6555.592467,
+   "wallets": 41
   },
   "history": [
    {
@@ -161,6 +183,11 @@
     "ts": 1791612002,
     "lmao": 10232.418363,
     "wallets": 24
+   },
+   {
+    "ts": 1791619355,
+    "lmao": 6555.592467,
+    "wallets": 41
    }
   ]
  }
