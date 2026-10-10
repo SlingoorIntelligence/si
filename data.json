@@ -1,1 +1,8 @@
-{"updated": null, "agent": null, "rewards": {"enabled": false}}
+{
+ "updated": 1791594434,
+ "updated_iso": "2026-10-10T01:07:14+00:00",
+ "agent": null,
+ "rewards": {
+  "enabled": false
+ }
+}
