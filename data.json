@@ -1,6 +1,6 @@
 {
- "updated": 1791695526,
- "updated_iso": "2026-10-11T05:12:06+00:00",
+ "updated": 1791696687,
+ "updated_iso": "2026-10-11T05:31:27+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "sol": 0.4154,
@@ -325,9 +325,9 @@
  },
  "market": {
   "source": "pump.fun",
-  "mcap": 10119.792056219216,
-  "price": 1.0119792056219216e-05,
+  "mcap": 9065.343415406278,
+  "price": 9.065343415406278e-06,
   "complete": false,
-  "ts": 1791695526
+  "ts": 1791696687
  }
 }
