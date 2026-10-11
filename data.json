@@ -1,6 +1,6 @@
 {
- "updated": 1791756888,
- "updated_iso": "2026-10-11T22:14:48+00:00",
+ "updated": 1791757887,
+ "updated_iso": "2026-10-11T22:31:27+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "sol": 0.4047,
@@ -51,7 +51,7 @@
     "tokens": 74025.233275,
     "name": "lil uzi cat",
     "symbol": "uzicat",
-    "image": ""
+    "image": "https://ipfs.io/ipfs/QmSydyQhT2o8oZ6wFVUev8VqXgA9MdeM7V9M6TLa9AdaNN"
    },
    {
     "ts": 1791677359,
@@ -384,9 +384,9 @@
  },
  "market": {
   "source": "pump.fun",
-  "mcap": 12445.930183425204,
-  "price": 1.2445930183425204e-05,
+  "mcap": 12868.14793500753,
+  "price": 1.2868147935007529e-05,
   "complete": false,
-  "ts": 1791756888
+  "ts": 1791757887
  }
 }
