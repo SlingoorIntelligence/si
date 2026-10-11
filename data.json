@@ -1,14 +1,25 @@
 {
- "updated": 1791676671,
- "updated_iso": "2026-10-10T23:57:51+00:00",
+ "updated": 1791677780,
+ "updated_iso": "2026-10-11T00:16:20+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
-  "sol": 0.5264,
+  "sol": 0.4154,
   "start_sol": 1.0,
-  "apes": 6,
-  "spent_sol": 0.5055,
+  "apes": 7,
+  "spent_sol": 0.6165,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791677359,
+    "sig": "2tfq8X8j4PBRrXBT61yYpChRqS2iCcjrgbUWKBvzfRyuWhXW81PTgWGVxkFMt2W9FCbsyTmP5RAZqmcgvFHEgeuh",
+    "sol": -0.111019,
+    "kind": "buy",
+    "mint": "hy55PGKUaaWbt6AQS3mWUCrGLbBuL5dhder15Hbpump",
+    "tokens": 91304.708693,
+    "name": "Theater Mouse",
+    "symbol": "Mouse",
+    "image": "https://desperate-moccasin-minnow.myfilebase.com/ipfs/QmZigQSU9WHeEk59T6pQFugmH9D8dgfySNrvN8WzKLD6po"
+   },
    {
     "ts": 1791658771,
     "sig": "52nVUj3cwVTumhGBDSeqGKoA55dXd3gfczU5ahdbxe7AgLZBrPbcXyNLcaDEmGDFDmZD2xN7XALzmnJUiFmMrWoY",
@@ -314,9 +325,9 @@
  },
  "market": {
   "source": "pump.fun",
-  "mcap": 8015.042697955317,
-  "price": 8.015042697955316e-06,
+  "mcap": 7971.77174626742,
+  "price": 7.97177174626742e-06,
   "complete": false,
-  "ts": 1791676671
+  "ts": 1791677780
  }
 }
