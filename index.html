@@ -74,11 +74,16 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .screen .glass{position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.05),transparent 35%),radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.45));}
 .screen .scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.2) 0 1px,transparent 1px 3px);opacity:.5}
-.sound{position:absolute;right:12px;top:12px;z-index:4;font:700 10px var(--mono);letter-spacing:.16em;color:var(--amb);background:rgba(0,0,0,.55);border:1px solid rgba(255,176,0,.5);padding:5px 8px;cursor:pointer}
-.sound.need{color:#000;background:var(--amb);border-color:var(--amb);font-size:12px;padding:8px 12px;box-shadow:0 0 22px rgba(255,176,0,.55);animation:breathe 1.6s ease-in-out infinite}
-.sound.need::after{content:'';position:absolute;inset:-5px;border:2px solid var(--amb);pointer-events:none;animation:ring 1.6s ease-out infinite}
-@keyframes breathe{50%{transform:scale(1.06)}}
-@keyframes ring{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.35,1.7);opacity:0}}
+.sound{position:absolute;right:12px;top:12px;z-index:4;display:flex;align-items:center;gap:8px;font:700 10px var(--mono);letter-spacing:.16em;color:var(--amb);background:rgba(0,0,0,.55);border:1px solid rgba(255,176,0,.35);border-radius:999px;padding:4px 11px 4px 4px;cursor:pointer;opacity:.5;transition:opacity .2s;-webkit-tap-highlight-color:transparent}
+.sound:hover{opacity:.9}
+.sound .ic{position:relative;width:24px;height:24px;flex:none}
+.sound .ic img{width:100%;height:100%;display:block}
+.sound .ic i{position:absolute;left:-3px;right:-3px;top:50%;height:3px;margin-top:-1.5px;border-radius:2px;background:#FF3B3B;box-shadow:0 0 0 1.5px rgba(0,0,0,.65);transform:rotate(45deg) scaleX(0);transition:transform .18s ease-out}
+.sound.off{opacity:1;color:#fff;border-color:#FF3B3B;background:rgba(48,4,4,.72);animation:sflash 1.1s ease-in-out infinite}
+.sound.off .ic i{transform:rotate(45deg) scaleX(1)}
+.sound.off .ic img{filter:grayscale(.5) brightness(.85)}
+.sound.load{opacity:1;animation:none}
+@keyframes sflash{50%{opacity:.4}}
 .prog{height:3px;margin:0 12px 12px;background:rgba(255,176,0,.12);position:relative}.prog i{position:absolute;left:0;top:0;bottom:0;width:100%;transform:scaleX(0);transform-origin:left center;background:var(--amb);box-shadow:0 0 10px var(--amb)}
 /* persona core */
 .db-core{grid-area:core}
@@ -126,11 +131,6 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .db-mon.m-slowed{box-shadow:0 0 0 1px rgba(255,138,92,.35),0 10px 40px rgba(0,0,0,.45)}
 .db-mon.m-screwed{box-shadow:0 0 0 1px rgba(182,107,255,.4),0 10px 40px rgba(0,0,0,.45)}
 .db-mon.m-spedup{box-shadow:0 0 0 1px rgba(80,230,255,.35),0 10px 40px rgba(0,0,0,.45)}
-.enable{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);cursor:pointer;border:0;width:100%;color:inherit}
-.enable span{position:relative;font:700 14px var(--mono);letter-spacing:.24em;color:#000;background:var(--amb);padding:14px 22px;box-shadow:0 0 34px rgba(255,176,0,.6);animation:breathe 1.6s ease-in-out infinite}
-.enable span::after{content:'';position:absolute;inset:-6px;border:2px solid var(--amb);pointer-events:none;animation:ring2 1.6s ease-out infinite}
-@keyframes ring2{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.12,1.4);opacity:0}}
-.enable.off{display:none}
 .trk{display:flex;gap:6px;margin:0 12px 10px;flex-wrap:wrap}
 .trk span{font:500 10.5px var(--mono);letter-spacing:.14em;padding:4px 8px;border:1px solid rgba(255,176,0,.18);color:var(--dim)}
 .trk span.on{color:#000;background:var(--viz);border-color:var(--viz)}
@@ -157,13 +157,18 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .side2{display:grid;grid-template-rows:auto auto;align-content:space-between;gap:16px}
 .mini2{display:flex;flex-direction:column;text-decoration:none;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel);transition:transform .15s,border-color .15s}
 .mini2:hover{transform:translateY(-3px);border-color:rgba(255,176,0,.55)}
-.mini2 .shot{background:#07080a center/contain no-repeat;aspect-ratio:1200/630;width:100%;flex:none;border-bottom:1px solid var(--line)}
-.mini2 .meta{padding:12px 16px 14px;display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
+.mini2 .pv{background:#0b1210;border-bottom:1px solid var(--line);flex:none}
+.mini2 .pvh,.mini2 .pvc{width:100%;background-repeat:no-repeat;background-size:100% auto}
+.mini2 .pvh{aspect-ratio:1200/128;background-position:0 6.81%}
+.mini2 .pvc{aspect-ratio:1200/160;background-position:0 91.06%}
+.mini2 .pvq{margin:0;padding:.5% 5.4% 2.2%;font:500 clamp(14px,1.45vw,18px)/1.35 Inter,-apple-system,system-ui,sans-serif;color:#fff;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mini2 .pvx{padding:16px 18px 6px}.mini2 .pvx .who{display:block;margin-bottom:8px}
+.mini2 .meta{padding:10px 16px 12px;display:flex;flex-direction:row;align-items:center;gap:12px;min-width:0}
 .mini2 .n{font:700 11px var(--mono);letter-spacing:.16em;color:var(--dim)}
-.mini2 .who{font:700 12px var(--mono);letter-spacing:.12em;color:var(--amb);text-transform:uppercase}
-.mini2 .q{font:600 15px/1.45 var(--mono);color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.mini2 .go{margin-top:auto;font:700 11.5px var(--mono);letter-spacing:.14em;color:var(--amb)}
-.mini2.slot{border-style:dashed;pointer-events:none}.mini2.slot .shot{background:repeating-linear-gradient(45deg,rgba(255,176,0,.03) 0 10px,transparent 10px 20px)}
+.mini2 .who{font:700 12px var(--mono);letter-spacing:.12em;color:var(--amb);text-transform:uppercase;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini2 .go{margin-left:auto;font:700 11.5px var(--mono);letter-spacing:.14em;color:var(--amb);white-space:nowrap}
+.mini2.slot{border-style:dashed;pointer-events:none}.mini2.slot .meta{padding:16px}
+@media (min-width:901px){.side2{grid-template-rows:1fr 1fr;align-content:stretch}.side2:has(.slot){grid-template-rows:1fr auto}.mini2 .pv{flex:1;display:flex;flex-direction:column;background:radial-gradient(120% 90% at 50% 45%,#0e1714,#090c0c)}.mini2 .pvq{flex:1;font-size:clamp(17px,1.5vw,22px)}}
 @media (max-width:900px){.co3{grid-template-columns:1fr}.feat{min-height:460px}.side2{grid-template-columns:1fr 1fr;grid-template-rows:auto}}
 @media (max-width:600px){.side2{grid-template-columns:1fr}}
 
@@ -326,6 +331,7 @@ footer a{color:var(--ink2)}
   .tile b{font-size:26px;white-space:normal}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+@media (min-width:901px){.mini2 .pvq{display:flex!important;align-items:center;justify-content:center;text-align:center;font-size:clamp(28px,3vw,46px)!important;line-height:1.2;-webkit-line-clamp:unset;padding:4% 7%!important}}
 </style>
 </head>
 <body>
@@ -350,7 +356,7 @@ footer a{color:var(--ink2)}
 
     <div class="p db-mon" id="mon">
       <div class="ph"><span class="d"></span><span id="np" class="np-tag">AUDIO // SI 2</span><span class="r" id="tc">--:-- / --:--</span><span class="rec">● REC</span></div>
-      <div class="screen"><video id="mv" src="launch.mp4" poster="poster.jpg" muted autoplay loop playsinline preload="metadata"></video><div class="dim"></div><canvas id="viz" width="1280" height="720"></canvas><div class="scan"></div><div class="glass"></div><button class="sound need" id="snd">&#9654; PLAY SOUND</button><button class="enable" id="enable"><span>▶ ENABLE AUDIO</span></button></div>
+      <div class="screen"><video id="mv" src="launch.mp4" poster="poster.jpg" muted autoplay loop playsinline preload="metadata"></video><div class="dim"></div><canvas id="viz" width="1280" height="720"></canvas><div class="scan"></div><div class="glass"></div><button class="sound off" id="snd" aria-label="laughter on/off"><span class="ic"><img src="lmao.png" alt=""><i></i></span><span class="lb">LAUGHTER OFF</span></button></div>
       <div class="trk" id="trk"><span>SI 2</span><span>SLOWED + REVERB</span><span>CHOPPED &amp; SCREWED</span><span>SPED UP</span></div><div class="prog"><i id="pg"></i></div>
     </div>
 
@@ -439,7 +445,7 @@ footer a{color:var(--ink2)}
           <div><b id="mLast">—</b><span>last move</span></div>
         </div>
         <div class="agent-pic">
-          <img src="agent.jpg" alt="the agent">
+          <img src="agent.jpg" alt="the agent" loading="lazy" decoding="async">
           <p><b>one sol and a dream.</b> the agent wallet started with 1 SOL, funded by hand, not by your fees. every move it makes shows up here, live, straight from the chain.</p>
         </div>
         <div class="wallet-addr" id="waddr"></div>
@@ -499,7 +505,7 @@ footer a{color:var(--ink2)}
   <div class="wrap">
     <div class="sec-head reveal"><div><div class="kicker">05 · footage</div><h2>agent <em>online</em></h2><p class="sec-sub">already bagholding.</p></div></div>
     <div class="watch">
-      <div class="reveal"><div class="vid"><video src="launch.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video></div><div class="vid-cap">launch film</div></div>
+      <div class="reveal"><div class="vid"><video src="launch.mp4" poster="poster.jpg" controls playsinline preload="none"></video></div><div class="vid-cap">launch film</div></div>
 
     </div>
   </div>
@@ -624,7 +630,7 @@ function typeLog() {
 // meter: conviction pinned at the top, flickering
 $('sess').textContent = 'SESSION 0x' + Math.floor(Math.random() * 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
 // ---------- agent cam: live pixel eyes
-const CAM = $('cam'), CC = CAM.getContext('2d'), AG = new Image(); AG.src = 'agent.jpg';
+const CAM = $('cam'), CC = CAM.getContext('2d'), AG = { complete: false };   // old photo cam (unused): no longer downloads agent.jpg up front
 const EYE = { x: 0, y: 0, tx: 0, ty: 0, next: 0, blink: 2500 };
 function drawCam(now) {
   if (AG.complete && AG.naturalWidth) { const sx = 152, sy = 60, sw = 340, k = 400 / sw; CC.drawImage(AG, sx, sy, sw, sw, 0, 0, 400, 400);
@@ -695,22 +701,27 @@ function setTrack(i) {
 }
 AU.addEventListener('ended', () => { setTrack(TI + 1); if (AUDIO_ON) AU.play().catch(() => {}); });
 function graph() {
-  if (AN) { if (ACX.state !== 'running') ACX.resume(); return; }
-  try { ACX = new (window.AudioContext || window.webkitAudioContext)(); const srcN = ACX.createMediaElementSource(AU); AN = ACX.createAnalyser(); AN.fftSize = 4096; AN.smoothingTimeConstant = 0.5; AN.minDecibels = -100; AN.maxDecibels = -10; srcN.connect(AN); AN.connect(ACX.destination); FREQ = new Uint8Array(AN.frequencyBinCount); WAVE = new Uint8Array(AN.fftSize); ACX.resume(); } catch (e) { }
+  if (!AN) { try { ACX = new (window.AudioContext || window.webkitAudioContext)(); const srcN = ACX.createMediaElementSource(AU); AN = ACX.createAnalyser(); AN.fftSize = 4096; AN.smoothingTimeConstant = 0.5; AN.minDecibels = -100; AN.maxDecibels = -10; srcN.connect(AN); AN.connect(ACX.destination); FREQ = new Uint8Array(AN.frequencyBinCount); WAVE = new Uint8Array(AN.fftSize); ACX.onstatechange = () => sndUI(); } catch (e) { } }
+  if (ACX && ACX.state !== 'running') { try { ACX.resume().then(sndUI, () => {}); } catch (e) { } }
 }
-function startAudio() {
-  graph(); if (AUDIO_ON && !AU.paused) return; AUDIO_ON = true; window.__sst = performance.now(); calmSound();
-  AU.play().catch(() => { AUDIO_ON = false; $('enable').classList.remove('off'); sndUI(); });
+let WAITING = false, CHOSE = false;          // CHOSE: visitor has used the laughter button, so we never auto-start again
+const soundOn = () => AUDIO_ON && !WAITING && !AU.paused && !!ACX && ACX.state === 'running';
+function startAudio() {                       // runs inside a real tap / click / key press
+  graph(); AUDIO_ON = true; AU.muted = false;
+  if (AU.paused) { WAITING = true; SLT = -1; AU.play().catch(() => { AUDIO_ON = false; WAITING = false; sndUI(); }); }
+  sndUI();
 }
-$('enable').onclick = e => { e.stopPropagation(); startAudio(); };
-$('snd').onclick = e => { e.stopPropagation(); if (!AUDIO_ON || AU.paused) return startAudio(); if (performance.now() - (window.__sst || 0) < 800) { AU.muted = false; calmSound(); return; }  // this same tap just started the music: don't mute it
-  AU.muted = !AU.muted; sndUI(); };
-function calmSound() { $('enable').classList.add('off'); const b = $('snd'); b.classList.remove('need'); if (b.textContent !== 'SOUND ON') b.textContent = 'SOUND ON'; }  // stop the pulse right away on tap
-function sndUI() { const on = AUDIO_ON && !AU.paused && !AU.muted, b = $('snd'), t = on ? 'SOUND ON' : '\u25B6 PLAY SOUND'; if (b.textContent !== t) b.textContent = t; b.classList.toggle('need', !on); }
-['play', 'playing', 'pause', 'volumechange', 'emptied'].forEach(ev => AU.addEventListener(ev, () => setTimeout(sndUI, 0)));
-AU.addEventListener('playing', () => { if (AUDIO_ON && !AU.muted) calmSound(); });
-['pointerdown', 'keydown', 'touchstart'].forEach(ev => window.addEventListener(ev, () => { if (!AUDIO_ON || AU.paused || (ACX && ACX.state !== 'running')) startAudio(); }, { passive: true }));
-setTrack(0); graph(); AU.play().then(() => { if (ACX && ACX.state !== 'running') { AU.pause(); return; } AUDIO_ON = true; calmSound(); }).catch(() => {});
+function stopAudio() { AUDIO_ON = false; WAITING = false; AU.pause(); sndUI(); }
+function sndUI() { const on = soundOn(), loading = !on && AUDIO_ON && WAITING, b = $('snd'), t = on ? 'LAUGHTER ON' : loading ? 'LOADING…' : 'LAUGHTER OFF', lb = b.querySelector('.lb');
+  if (lb.textContent !== t) lb.textContent = t; b.classList.toggle('off', !on && !loading); b.classList.toggle('load', loading); }
+$('snd').addEventListener('click', e => { e.stopPropagation(); CHOSE = true; if (soundOn() || (AUDIO_ON && WAITING)) stopAudio(); else startAudio(); });
+AU.addEventListener('waiting', () => { if (AUDIO_ON) WAITING = true; sndUI(); });
+AU.addEventListener('emptied', () => { if (AUDIO_ON) WAITING = true; sndUI(); });
+AU.addEventListener('pause', () => { WAITING = false; setTimeout(sndUI, 0); });
+let SLT = -1; AU.addEventListener('timeupdate', () => { if (WAITING && SLT >= 0 && AU.currentTime > SLT) { WAITING = false; sndUI(); } SLT = AU.currentTime; });  // ON only once audio is actually moving
+// iPhone/iPad only unlock audio on touchend / click / key press. the first tap anywhere starts the laughter, unless it's on the button itself or they've already chosen
+['touchend', 'click', 'keydown'].forEach(ev => window.addEventListener(ev, e => { if (CHOSE || (e.target && e.target.closest && e.target.closest('#snd'))) return; if (!soundOn()) startAudio(); }, { passive: true, capture: true }));
+setTrack(0);
 window.__track = i => { setTrack(i); if (AUDIO_ON) AU.play().catch(() => {}); };
 
 // ---------- visualizer: a different look for each version
@@ -724,7 +735,7 @@ const EDGES = Array.from({ length: NB + 1 }, (_, i) => 45 * Math.pow(15000 / 45,
 let FD = null, AGC = 0.6, LASTT = 0;
 function spectrum(t) {
   const dt = Math.min(0.1, Math.max(0.001, t - LASTT)); LASTT = t;
-  const live = AN && AUDIO_ON && !AU.paused && !AU.muted;
+  const live = AN && AUDIO_ON && !AU.paused;
   if (!live) { for (let i = 0; i < NB; i++) { const v = .05 + .035 * Math.sin(t * 1.4 + i * .35); SPEC[i] += (v - SPEC[i]) * .08; } }
   else {
     if (!FD || FD.length !== AN.frequencyBinCount) FD = new Float32Array(AN.frequencyBinCount);
@@ -778,7 +789,7 @@ function drawScrewed(t) {                        // purple radial spectrum, slow
   VC.lineWidth = 2; VC.strokeStyle = 'rgba(210,170,255,.55)'; VC.beginPath(); VC.arc(cx, cy, R, 0, Math.PI * 2); VC.stroke();
   VC.setLineDash([4, 14]); VC.strokeStyle = 'rgba(210,170,255,.35)'; VC.beginPath(); VC.arc(cx, cy, R - 26, -ROT * 2, -ROT * 2 + Math.PI * 2); VC.stroke(); VC.setLineDash([]);
   VC.fillStyle = `rgba(182,107,255,${.18 + .5 * BASS})`; VC.beginPath(); VC.arc(cx, cy, 10 + 26 * BASS, 0, Math.PI * 2); VC.fill();
-  if (CHOP > .35) { const sx = VZ.width / VW, sy = VZ.height / VH; for (let k = 0; k < 5; k++) { const y = Math.random() * VH, h = 14 + Math.random() * 46, dx = (Math.random() - .5) * 90 * CHOP; VC.drawImage(VZ, 0, y * sy, VZ.width, h * sy, dx, y, VW, h); } VC.fillStyle = `rgba(182,107,255,${.08 * CHOP})`; VC.fillRect(0, 0, VW, VH); }
+  if (CHOP > .35) { ring(10 * CHOP, `rgba(255,90,200,${.35 * CHOP})`, 5); VC.fillStyle = `rgba(182,107,255,${.06 * CHOP})`; VC.fillRect(0, 0, VW, VH); }   // chop hit: pink ghost ring (no canvas self-copy, which stutters on iPhone)
 }
 const STREAK = [];
 function drawSped(t) {                           // sped up: mirrored waveform bars + speed streaks
@@ -792,14 +803,15 @@ function drawSped(t) {                           // sped up: mirrored waveform b
 // see-through: the whole visualizer fades with the music. quiet parts ~15%, loudest parts capped at 69%
 // loudness range of each version (measured from the mp3s: quiet intro -> loudest 2%)
 const VREF = { normal: [.10, .444], slowed: [.09, .317], screwed: [.085, .342], spedup: [.11, .446] };
-const OP_MIN = 0.15, OP_MAX = 0.69, OP_FLOOR = 0.38; let LOP = OP_FLOOR, LOPW = -1, OPT = 0;
+const VIZ_SCALE = 0.5;  // proposal: visualizer at half its previous opacity
+const OP_MIN = 0.15, OP_MAX = 0.69; let LOP = 0.3, LOPW = -1, OPT = 0;
 function vizOpacity(t) {
-  const dt = Math.min(0.1, Math.max(0.001, t - OPT)); OPT = t; let target = OP_FLOOR;
+  const dt = Math.min(0.1, Math.max(0.001, t - OPT)); OPT = t; let target = 0.3;
   const wv = waveArr();
-  if (wv && !AU.muted) { let sum = 0; for (let i = 0; i < wv.length; i += 4) { const v = (wv[i] - 128) / 128; sum += v * v; } const rms = Math.sqrt(sum / (wv.length / 4));
-    const [lo, hi] = VREF[TRACKS[TI].mode] || [.1, .44], rel = Math.max(0, Math.min(1, (rms - lo) / (hi - lo))); target = Math.max(OP_FLOOR, OP_MIN + (OP_MAX - OP_MIN) * Math.pow(rel, 1.3)); }  // quiet parts stay readable in front of the video; louder parts use the v10 mapping
-  LOP += (target - LOP) * Math.min(1, dt * (target > LOP ? 14 : 4)); const op = Math.min(OP_MAX, Math.max(OP_FLOOR, LOP));
-  if (Math.abs(op - LOPW) > 0.004) { LOPW = op; VZ.style.opacity = op.toFixed(3); }
+  if (wv) { let sum = 0; for (let i = 0; i < wv.length; i += 4) { const v = (wv[i] - 128) / 128; sum += v * v; } const rms = Math.sqrt(sum / (wv.length / 4));
+    const [lo, hi] = VREF[TRACKS[TI].mode] || [.1, .44], rel = Math.max(0, Math.min(1, (rms - lo) / (hi - lo))); target = OP_MIN + (OP_MAX - OP_MIN) * Math.pow(rel, 1.3); }
+  LOP += (target - LOP) * Math.min(1, dt * (target > LOP ? 14 : 4)); const op = Math.min(OP_MAX, Math.max(0.05, LOP));
+  if (Math.abs(op - LOPW) > 0.004) { LOPW = op; VZ.style.opacity = (op * VIZ_SCALE).toFixed(3); }
 }
 function drawViz(now) {
   const t = now / 1000, mode = TRACKS[TI].mode; vizOpacity(t);
@@ -850,8 +862,12 @@ function drawHead(now) {
 // render loop: viz at full rate, head at half rate, core sphere at quarter rate, nothing draws while off screen or in a background tab
 const VIS = { viz: true, cam: true, core: true };
 if ('IntersectionObserver' in window) { const vo = new IntersectionObserver(es => es.forEach(e => { VIS[e.target.id] = e.isIntersecting; if (e.target.id === 'viz') sizeViz(); }), { rootMargin: '80px' }); ['viz', 'cam', 'core'].forEach(id => vo.observe($(id))); }
-let FRN = 0;
-(function loop(now) { requestAnimationFrame(loop); if (document.hidden) return; FRN++; spectrum(now / 1000); if (VIS.viz) drawViz(now); if (FRN & 1) { if (VIS.cam) drawHead(now); } else if (FRN % 4 === 0 && VIS.core) drawCore(now); })(0);
+// if a device can't hold 60fps (measured over the first seconds), everything animates at half rate instead of stuttering
+let FRN = 0, LT = 0, EMA = 16.7, LITE = false; const T_START = performance.now();
+(function loop(now) { requestAnimationFrame(loop); if (document.hidden) { LT = 0; return; }
+  if (LT && !LITE) { EMA += (Math.min(100, now - LT) - EMA) * .03; if (now - T_START > 3000 && EMA > 24) LITE = true; } LT = now;
+  FRN++; const k = LITE ? 2 : 1; if (FRN % k) return; const f = FRN / k;
+  spectrum(now / 1000); if (VIS.viz) drawViz(now); if (f & 1) { if (VIS.cam) drawHead(now); } else if (f % 4 === 0 && VIS.core) drawCore(now); })(0);
 // videos only decode while visible
 const VPLAY = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) { const p = v.play(); if (p) p.catch(() => {}); } else v.pause(); }), { rootMargin: '120px' }) : null;
 function watchVideos(root) { if (VPLAY) (root || document).querySelectorAll('video[autoplay]').forEach(v => { if (!v.__w) { v.__w = 1; VPLAY.observe(v); } }); }
@@ -902,13 +918,21 @@ async function loadCallouts() {
   CALLOUTS = items.filter(c => c && c.url).slice(0, 3);
   if (upd) $('coStamp').textContent = 'refreshed ' + ago(upd);
   const f = CALLOUTS[0];
-  const feat = f ? `<a class="feat" href="${esc(f.url)}" target="_blank" rel="noopener"><div class="bgb"></div><video src="callout-bg.mp4" poster="callout-bg.jpg" muted autoplay loop playsinline preload="metadata"></video><div class="fx"></div>
+  const feat = f ? `<a class="feat" href="${esc(f.url)}" target="_blank" rel="noopener"><div class="bgb"></div><video src="callout-bg.mp4" poster="callout-bg.jpg" muted autoplay loop playsinline preload="none"></video><div class="fx"></div>
       <span class="tag">LATEST CALL</span><span class="live2"><i></i>ON THE TAPE</span>
       <div class="body">${f.who ? `<div class="who">${esc(f.who)}</div>` : ''}${f.text ? `<p class="q">${esc(f.text)}</p>` : ''}<span class="open">OPEN CALLOUT ↗</span></div></a>`
-    : `<div class="feat"><div class="bgb"></div><video src="callout-bg.mp4" poster="callout-bg.jpg" muted autoplay loop playsinline preload="metadata"></video><div class="fx"></div><span class="tag">LATEST CALL</span><div class="body"><p class="q">first call loading</p></div></div>`;
-  const cards = CALLOUTS.slice(1).map((c, i) => `<a class="mini2" href="${esc(c.url)}" target="_blank" rel="noopener"><div class="shot" style="background-image:url('${esc(c.img || 'callout-bg.jpg')}')"></div><div class="meta"><span class="n">#${i + 2}</span>${c.who ? `<span class="who">${esc(c.who)}</span>` : ''}<span class="q">${esc(c.text || 'callout on pump.fun')}</span><span class="go">OPEN ↗</span></div></a>`);
-  while (cards.length < 2) cards.push(`<div class="mini2 slot"><div class="shot"></div><div class="meta"><span class="n">#${cards.length + 2}</span><span class="q" style="color:var(--dim)">next call lands here</span></div></div>`);
+    : `<div class="feat"><div class="bgb"></div><video src="callout-bg.mp4" poster="callout-bg.jpg" muted autoplay loop playsinline preload="none"></video><div class="fx"></div><span class="tag">LATEST CALL</span><div class="body"><p class="q">first call loading</p></div></div>`;
+  const cards = CALLOUTS.slice(1).map((c, i) => { const q = c.text ? esc(c.text) : 'callout on pump.fun', who = c.who ? esc(c.who) : '';
+    const pv = c.img ? `<div class="pv" data-img="${esc(c.img)}" data-who="${who}"><div class="pvh" style="background-image:url('${esc(c.img)}')"></div><p class="pvq">${q}</p><div class="pvc" style="background-image:url('${esc(c.img)}')"></div></div>`
+                     : `<div class="pv pvx">${who ? `<span class="who">${who}</span>` : ''}<p class="pvq" style="padding:0 0 10px">${q}</p></div>`;
+    return `<a class="mini2" href="${esc(c.url)}" target="_blank" rel="noopener">${pv}<div class="meta"><span class="n">#${i + 2}</span>${c.img && who ? `<span class="who">${who}</span>` : ''}<span class="go">OPEN ↗</span></div></a>`; });
+  if (cards.length < 2) cards.push(`<div class="mini2 slot"><div class="meta"><span class="n">#${cards.length + 2}</span><span class="who" style="color:var(--dim)">next call lands here</span></div></div>`);
   $('co').innerHTML = feat + `<div class="side2">${cards.join('')}</div>`; if (typeof watchVideos === 'function') watchVideos($('co'));
+  // safety net: the crop assumes Pump's current 1200x630 share card. if an image is a different shape (Pump redesign) or fails to load, show the text-only card instead
+  document.querySelectorAll('#co .pv[data-img]').forEach(pv => { const im = new Image();
+    const textOnly = () => { if (!pv.isConnected || !pv.dataset.img) return; const who = pv.dataset.who || '', q = pv.querySelector('.pvq').innerHTML; pv.removeAttribute('data-img'); pv.className = 'pv pvx';
+      pv.innerHTML = (who ? `<span class="who">${esc(who)}</span>` : '') + `<p class="pvq" style="padding:0 0 10px">${q}</p>`; const m = pv.parentNode.querySelector('.meta .who'); if (m) m.remove(); };
+    im.onload = () => { const w = im.naturalWidth, h = im.naturalHeight; if (!w || !h || Math.abs(w / h - 1200 / 630) > 0.01) textOnly(); }; im.onerror = textOnly; im.src = pv.dataset.img; });
 }
 
 
