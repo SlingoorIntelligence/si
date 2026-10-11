@@ -1,14 +1,25 @@
 {
- "updated": 1791703381,
- "updated_iso": "2026-10-11T07:23:01+00:00",
+ "updated": 1791704412,
+ "updated_iso": "2026-10-11T07:40:12+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
-  "sol": 0.4154,
+  "sol": 0.4047,
   "start_sol": 1.0,
-  "apes": 7,
-  "spent_sol": 0.6165,
+  "apes": 8,
+  "spent_sol": 0.6272,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791703449,
+    "sig": "5EWFL7JeCoAoqgXfGYZJr3HhJBZJLhMqphxohBgPsQrmNCdh9LEYGi4StnAnDJH2H2KayPBAsKgj8dwR3Cm7a6jG",
+    "sol": -0.010678,
+    "kind": "buy",
+    "mint": "AGmKjJwXiu5wCC7fiDPptetoMCa7rYsSaYX2Cqxqpump",
+    "tokens": 74025.233275,
+    "name": "lil uzi cat",
+    "symbol": "uzicat",
+    "image": ""
+   },
    {
     "ts": 1791677359,
     "sig": "2tfq8X8j4PBRrXBT61yYpChRqS2iCcjrgbUWKBvzfRyuWhXW81PTgWGVxkFMt2W9FCbsyTmP5RAZqmcgvFHEgeuh",
@@ -325,9 +336,9 @@
  },
  "market": {
   "source": "pump.fun",
-  "mcap": 8412.156004343564,
-  "price": 8.412156004343563e-06,
+  "mcap": 9493.19988013707,
+  "price": 9.49319988013707e-06,
   "complete": false,
-  "ts": 1791703381
+  "ts": 1791704412
  }
 }
