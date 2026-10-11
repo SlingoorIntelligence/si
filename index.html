@@ -331,7 +331,7 @@ footer a{color:var(--ink2)}
   .tile b{font-size:26px;white-space:normal}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-@media (min-width:901px){.mini2 .pvq{display:flex!important;align-items:center;justify-content:center;text-align:center;font-size:clamp(28px,3vw,46px)!important;line-height:1.2;-webkit-line-clamp:unset;padding:4% 7%!important}}
+@media (min-width:901px){.mini2 .pvq{display:flex!important;align-items:center;justify-content:center;text-align:center;font-size:clamp(28px,3vw,46px)!important;line-height:1.2;-webkit-line-clamp:unset;padding:4% 7%!important}.mini2 .pvq.mid{font-size:clamp(20px,2vw,30px)!important}.mini2 .pvq.lng{font-size:clamp(15px,1.45vw,21px)!important;line-height:1.35}}
 </style>
 </head>
 <body>
@@ -922,16 +922,16 @@ async function loadCallouts() {
       <span class="tag">LATEST CALL</span><span class="live2"><i></i>ON THE TAPE</span>
       <div class="body">${f.who ? `<div class="who">${esc(f.who)}</div>` : ''}${f.text ? `<p class="q">${esc(f.text)}</p>` : ''}<span class="open">OPEN CALLOUT ↗</span></div></a>`
     : `<div class="feat"><div class="bgb"></div><video src="callout-bg.mp4" poster="callout-bg.jpg" muted autoplay loop playsinline preload="none"></video><div class="fx"></div><span class="tag">LATEST CALL</span><div class="body"><p class="q">first call loading</p></div></div>`;
-  const cards = CALLOUTS.slice(1).map((c, i) => { const q = c.text ? esc(c.text) : 'callout on pump.fun', who = c.who ? esc(c.who) : '';
-    const pv = c.img ? `<div class="pv" data-img="${esc(c.img)}" data-who="${who}"><div class="pvh" style="background-image:url('${esc(c.img)}')"></div><p class="pvq">${q}</p><div class="pvc" style="background-image:url('${esc(c.img)}')"></div></div>`
-                     : `<div class="pv pvx">${who ? `<span class="who">${who}</span>` : ''}<p class="pvq" style="padding:0 0 10px">${q}</p></div>`;
+  const cards = CALLOUTS.slice(1).map((c, i) => { const raw = (c.text || 'callout on pump.fun').trim(), cut = raw.length > 220 ? raw.slice(0, 217).trimEnd() + '\u2026' : raw, q = esc(cut), qs = cut.length > 80 ? ' lng' : cut.length > 30 ? ' mid' : '', who = c.who ? esc(c.who) : '';
+    const pv = c.img ? `<div class="pv" data-img="${esc(c.img)}" data-who="${who}"><div class="pvh" style="background-image:url('${esc(c.img)}')"></div><p class="pvq${qs}">${q}</p><div class="pvc" style="background-image:url('${esc(c.img)}')"></div></div>`
+                     : `<div class="pv pvx">${who ? `<span class="who">${who}</span>` : ''}<p class="pvq${qs}" style="padding:0 0 10px">${q}</p></div>`;
     return `<a class="mini2" href="${esc(c.url)}" target="_blank" rel="noopener">${pv}<div class="meta"><span class="n">#${i + 2}</span>${c.img && who ? `<span class="who">${who}</span>` : ''}<span class="go">OPEN ↗</span></div></a>`; });
   if (cards.length < 2) cards.push(`<div class="mini2 slot"><div class="meta"><span class="n">#${cards.length + 2}</span><span class="who" style="color:var(--dim)">next call lands here</span></div></div>`);
   $('co').innerHTML = feat + `<div class="side2">${cards.join('')}</div>`; if (typeof watchVideos === 'function') watchVideos($('co'));
   // safety net: the crop assumes Pump's current 1200x630 share card. if an image is a different shape (Pump redesign) or fails to load, show the text-only card instead
   document.querySelectorAll('#co .pv[data-img]').forEach(pv => { const im = new Image();
-    const textOnly = () => { if (!pv.isConnected || !pv.dataset.img) return; const who = pv.dataset.who || '', q = pv.querySelector('.pvq').innerHTML; pv.removeAttribute('data-img'); pv.className = 'pv pvx';
-      pv.innerHTML = (who ? `<span class="who">${esc(who)}</span>` : '') + `<p class="pvq" style="padding:0 0 10px">${q}</p>`; const m = pv.parentNode.querySelector('.meta .who'); if (m) m.remove(); };
+    const textOnly = () => { if (!pv.isConnected || !pv.dataset.img) return; const who = pv.dataset.who || '', qe = pv.querySelector('.pvq'), q = qe.innerHTML, qs = qe.className.replace('pvq', ''); pv.removeAttribute('data-img'); pv.className = 'pv pvx';
+      pv.innerHTML = (who ? `<span class="who">${esc(who)}</span>` : '') + `<p class="pvq${qs}" style="padding:0 0 10px">${q}</p>`; const m = pv.parentNode.querySelector('.meta .who'); if (m) m.remove(); };
     im.onload = () => { const w = im.naturalWidth, h = im.naturalHeight; if (!w || !h || Math.abs(w / h - 1200 / 630) > 0.01) textOnly(); }; im.onerror = textOnly; im.src = pv.dataset.img; });
 }
 
