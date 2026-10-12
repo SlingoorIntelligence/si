@@ -1,14 +1,20 @@
 {
- "updated": 1791774034,
- "updated_iso": "2026-10-12T03:00:34+00:00",
+ "updated": 1791775517,
+ "updated_iso": "2026-10-12T03:25:17+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
-  "sol": 0.4047,
+  "sol": 0.4036,
   "start_sol": 1.0,
   "apes": 8,
   "spent_sol": 0.6272,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791774477,
+    "sig": "4nzzJJkgZktRLJmg2piLXM6g5JW756BVTu4y6sB15teoS5BjHjRChLmepSXCjYR9eAbi6KWce5uCZzrJ519nf1dT",
+    "sol": -0.001067,
+    "kind": "withdraw"
+   },
    {
     "ts": 1791767695,
     "sig": "5uSU5Heg1iFdLFbFV5RFNV6zEoM6Mahb1D7FAyDGWXKvXnxhJm1kjHDekZYfVFahkEMdqdRHtHtGufD91R4jCtjZ",
@@ -400,9 +406,9 @@
  },
  "market": {
   "source": "pump.fun",
-  "mcap": 12953.935608059934,
-  "price": 1.2953935608059934e-05,
+  "mcap": 12814.626189738117,
+  "price": 1.2814626189738116e-05,
   "complete": false,
-  "ts": 1791774034
+  "ts": 1791775517
  }
 }
