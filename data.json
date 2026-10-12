@@ -1,6 +1,6 @@
 {
- "updated": 1791846413,
- "updated_iso": "2026-10-12T23:06:53+00:00",
+ "updated": 1791847493,
+ "updated_iso": "2026-10-12T23:24:53+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "sol": 0.4036,
@@ -332,15 +332,15 @@
  "rewards": {
   "enabled": true,
   "vault": "GPAsJMijpLnfAtEtboXonPUC53WmFYpLHAfcpsRVxtE4",
-  "total_lmao": 231764.355127,
-  "fees_in_lmao": 234850.160719,
-  "vault_lmao": 3085.805592,
-  "drops": 14,
-  "wallets_paid": 218,
+  "total_lmao": 244778.060294,
+  "fees_in_lmao": 244785.954285,
+  "vault_lmao": 7.893991,
+  "drops": 15,
+  "wallets_paid": 219,
   "last_drop": {
-   "ts": 1791767702,
-   "lmao": 9784.798161,
-   "wallets": 42
+   "ts": 1791846886,
+   "lmao": 13013.705167,
+   "wallets": 2
   },
   "history": [
    {
@@ -412,14 +412,19 @@
     "ts": 1791767695,
     "lmao": 9784.798161,
     "wallets": 42
+   },
+   {
+    "ts": 1791846877,
+    "lmao": 13013.705167,
+    "wallets": 2
    }
   ]
  },
  "market": {
   "source": "pump.fun",
-  "mcap": 2936.2474495752995,
-  "price": 2.9362474495752993e-06,
+  "mcap": 2747.744494927118,
+  "price": 2.747744494927118e-06,
   "complete": false,
-  "ts": 1791846413
+  "ts": 1791847493
  }
 }
