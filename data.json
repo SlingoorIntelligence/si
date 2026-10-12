@@ -1,6 +1,6 @@
 {
- "updated": 1791839216,
- "updated_iso": "2026-10-12T21:06:56+00:00",
+ "updated": 1791840208,
+ "updated_iso": "2026-10-12T21:23:28+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "sol": 0.4036,
@@ -9,6 +9,17 @@
   "spent_sol": 0.6272,
   "funded_sol": 0.9901,
   "events": [
+   {
+    "ts": 1791839345,
+    "sig": "5YZzw8BMfVTuogZwdPkEbTJDoi6fXW1UkewjXDJEN365yjTxrHFiCsEnLnXqJk1FBgcmvmKadKpp7iwWmgym7UbX",
+    "sol": 0.0,
+    "kind": "reward",
+    "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "tokens": 2.835599,
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png"
+   },
    {
     "ts": 1791774477,
     "sig": "4nzzJJkgZktRLJmg2piLXM6g5JW756BVTu4y6sB15teoS5BjHjRChLmepSXCjYR9eAbi6KWce5uCZzrJ519nf1dT",
@@ -406,9 +417,9 @@
  },
  "market": {
   "source": "pump.fun",
-  "mcap": 9622.360680402944,
-  "price": 9.622360680402944e-06,
+  "mcap": 8181.603487729389,
+  "price": 8.181603487729389e-06,
   "complete": false,
-  "ts": 1791839216
+  "ts": 1791840208
  }
 }
