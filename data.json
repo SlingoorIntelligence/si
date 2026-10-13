@@ -1,14 +1,42 @@
 {
- "updated": 1791865517,
- "updated_iso": "2026-10-13T04:25:17+00:00",
+ "updated": 1791866763,
+ "updated_iso": "2026-10-13T04:46:03+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
-  "sol": 0.4036,
+  "sol": 0.4182,
   "start_sol": 1.0,
   "apes": 8,
   "spent_sol": 0.6272,
-  "funded_sol": 0.9901,
+  "funded_sol": 0.9911,
   "events": [
+   {
+    "ts": 1791866247,
+    "sig": "2Uc4TUVFni6q5ni6ZKW1iaTR3UM1iSRbnatiLwR4EPTer6dgDQnJW3XG18r4mUBsqV6JP1PPsaPV74egJ5PdF7GR",
+    "sol": 0.001052,
+    "kind": "fund"
+   },
+   {
+    "ts": 1791866246,
+    "sig": "5TLWcKBLULfcVP7UKHufAT4xYaqY6XhmfJu7Zpqzc1j4GzhPPDdVD2eCRESyodDwdHGSafAeY6rjgr3a1jpGPLvW",
+    "sol": 0.013572,
+    "kind": "sell",
+    "mint": "AGmKjJwXiu5wCC7fiDPptetoMCa7rYsSaYX2Cqxqpump",
+    "tokens": 74025.233275,
+    "name": "lil uzi cat",
+    "symbol": "uzicat",
+    "image": "https://ipfs.io/ipfs/QmSydyQhT2o8oZ6wFVUev8VqXgA9MdeM7V9M6TLa9AdaNN"
+   },
+   {
+    "ts": 1791865679,
+    "sig": "3jgQTJL3Wi4rwNweLGsQ7FQcBbKVyMQfrECX36n2KPetXXBSgFny7GtvMPjdUn4dD2zjCZnqPxToNEGmgE3LMWf7",
+    "sol": 0.0,
+    "kind": "reward",
+    "mint": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+    "tokens": 0.061902,
+    "name": "The Black Bull",
+    "symbol": "ANSEM",
+    "image": "https://edge.uxento.io/image/Cx83EqERns2VuiKrkwHegTuECVqZebsNhJ3dCU8CucWG"
+   },
    {
     "ts": 1791839345,
     "sig": "5YZzw8BMfVTuogZwdPkEbTJDoi6fXW1UkewjXDJEN365yjTxrHFiCsEnLnXqJk1FBgcmvmKadKpp7iwWmgym7UbX",
@@ -425,6 +453,6 @@
   "mcap": 2727.0794421207056,
   "price": 2.7270794421207055e-06,
   "complete": false,
-  "ts": 1791865517
+  "ts": 1791866763
  }
 }
