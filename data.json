@@ -1,6 +1,6 @@
 {
- "updated": 1791993764,
- "updated_iso": "2026-10-14T16:02:44+00:00",
+ "updated": 1791995851,
+ "updated_iso": "2026-10-14T16:37:31+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "sol": 0.4182,
@@ -464,6 +464,6 @@
   "mcap": 2701.746607822747,
   "price": 2.7017466078227473e-06,
   "complete": false,
-  "ts": 1791993764
+  "ts": 1791995851
  }
 }
