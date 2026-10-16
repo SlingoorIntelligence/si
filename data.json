@@ -1,6 +1,6 @@
 {
- "updated": 1792165607,
- "updated_iso": "2026-10-16T15:46:47+00:00",
+ "updated": 1792167255,
+ "updated_iso": "2026-10-16T16:14:15+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "sol": 0.4182,
@@ -9,6 +9,17 @@
   "spent_sol": 0.6272,
   "funded_sol": 0.9911,
   "events": [
+   {
+    "ts": 1792165951,
+    "sig": "4nnrpFhUei3pirmhNCHeieDk1qi6RSoYDpA6sGJubWBwF4eFUd65riUWDX7AvnmdMXu7PraNRY4QpFinCQ5vvmVh",
+    "sol": 0.0,
+    "kind": "reward",
+    "mint": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+    "tokens": 0.004185,
+    "name": "The Black Bull",
+    "symbol": "ANSEM",
+    "image": "https://edge.uxento.io/image/Cx83EqERns2VuiKrkwHegTuECVqZebsNhJ3dCU8CucWG"
+   },
    {
     "ts": 1792091343,
     "sig": "PBNN85Gdi7fLc4zkqz6Tdu3ir3c5UhooJCETr1QcWs6xZiiGiTg5oSUe5eJfQvt75fFpUNgbv2CvoTxr6VGH1Ft",
@@ -486,6 +497,6 @@
   "mcap": 2358.570460495539,
   "price": 2.358570460495539e-06,
   "complete": false,
-  "ts": 1792165607
+  "ts": 1792167255
  }
 }
