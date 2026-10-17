@@ -1,6 +1,6 @@
 {
- "updated": 1792235846,
- "updated_iso": "2026-10-17T11:17:26+00:00",
+ "updated": 1792237408,
+ "updated_iso": "2026-10-17T11:43:28+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
   "sol": 0.4182,
@@ -9,6 +9,17 @@
   "spent_sol": 0.6272,
   "funded_sol": 0.9911,
   "events": [
+   {
+    "ts": 1792236030,
+    "sig": "1AsoPo5jpsRr5jaV8wTiwkuvCtr7tGGuNUWnZXVkCrqxEfFeED4TSX4m1H8sjPj93utitRJGQZ3J7pdon8QA2VN",
+    "sol": 0.0,
+    "kind": "reward",
+    "mint": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+    "tokens": 0.001426,
+    "name": "The Black Bull",
+    "symbol": "ANSEM",
+    "image": "https://edge.uxento.io/image/Cx83EqERns2VuiKrkwHegTuECVqZebsNhJ3dCU8CucWG"
+   },
    {
     "ts": 1792165951,
     "sig": "4nnrpFhUei3pirmhNCHeieDk1qi6RSoYDpA6sGJubWBwF4eFUd65riUWDX7AvnmdMXu7PraNRY4QpFinCQ5vvmVh",
@@ -494,9 +505,9 @@
  },
  "market": {
   "source": "pump.fun",
-  "mcap": 2286.4080800225934,
-  "price": 2.2864080800225932e-06,
+  "mcap": 2269.2197914070684,
+  "price": 2.2692197914070685e-06,
   "complete": false,
-  "ts": 1792235846
+  "ts": 1792237408
  }
 }
