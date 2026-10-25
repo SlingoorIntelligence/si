@@ -1,14 +1,20 @@
 {
- "updated": 1792901819,
- "updated_iso": "2026-10-25T04:16:59+00:00",
+ "updated": 1792903822,
+ "updated_iso": "2026-10-25T04:50:22+00:00",
  "agent": {
   "address": "CixFygENwVj7AWnGikXu1dkUy2EG96mXPKj9D4ThDDBn",
-  "sol": 0.4775,
+  "sol": 0.4475,
   "start_sol": 1.0,
   "apes": 8,
   "spent_sol": 0.6272,
   "funded_sol": 1.0504,
   "events": [
+   {
+    "ts": 1792902413,
+    "sig": "4UqAYXAMmLYwNw4oNmKK7FtKLK6Gg8XGiv5mZUo8oq2b2FECfExphqTXbHM16USS7Np2p2QtaPCZKhTzcbY4kJz",
+    "sol": -0.029993,
+    "kind": "withdraw"
+   },
    {
     "ts": 1792778392,
     "sig": "y5H87NuVwYLkXY24QGPEL3PoxJLsGCir2FiDEozvCwZgafXtnDkQsqHxhPoVjiiwUk9opPmVgyvhExZ4iLExF9q",
@@ -514,6 +520,6 @@
   "mcap": 2450.2633813918487,
   "price": 2.4502633813918486e-06,
   "complete": false,
-  "ts": 1792901819
+  "ts": 1792903822
  }
 }
